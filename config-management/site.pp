@@ -1,4 +1,4 @@
-# Digital Ocean's sample file for puppet manifest
+# Practice puppet lab set up based on Digital Ocean's sample file for puppet manifest
 file {'/tmp/example-ip':
   ensure => present,	#resource type file and filename
   mode   => 0644,	#file permissions
