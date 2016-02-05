@@ -1,4 +1,5 @@
 #!/usr/bin/env python
+#Special thanks to Noah Gift and Jeremy Jones
 
 from cStringIO import StringIO
 import re
