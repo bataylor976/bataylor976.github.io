@@ -1,0 +1,127 @@
+# Install dhcp, tfpt, nfs, and download syslinux
+sudo apt-get install isc-dhcp-Server inetutils-inetd tftpd-hpa syslinux nfs-kernel-Server
+
+# Edit the “/etc/default/dhcp3-server” file.
+sudo vi /etc/default/dhcp3-server
+Add/edit as described below:
+INTERFACES="eth0"
+
+# Edit the “/etc/dhcp3/dhcpd.conf” file:
+
+sudo vi /etc/dhcp/dhcpd.conf
+
+# Modify in accordance with particular network needs and circumstances (does not reflect my actual network):
+
+default-lease-time 600;
+max-lease-time 7200;
+subnet 192.168.1.0 netmask 255.255.255.0 {
+range 192.168.1.21 192.168.1.240;
+option subnet-mask 255.255.255.0;
+option routers 192.168.1.20;
+option broadcast-address 192.168.1.255;
+filename "pxelinux.0";
+next-Server 192.168.1.20;
+}
+
+sudo /etc/init.d/isc-dhcp-server start
+
+# Configure TFTP server.
+# Enter the following on the command line to append to /etc/inetd.conf:
+echo "tftp dgram udp wait root /usr/sbin/in.tftpd /usr/sbin/in.tftpd -s /var/lib/tftpboot" >> /etc/inetd.conf
+
+# Edit the /etc/default/tftpd-hpa file as follows:
+
+sudo vi /etc/default/tftpd-hpa
+
+TFTP_USERNAME="tftp"
+TFTP_DIRECTORY="/var/lib/tftpboot"
+TFTP_ADDRESS="0.0.0.0:69"   
+TFTP_OPTIONS="--secure"
+RUN_DAEMON="yes"
+OPTIONS="-l -s /var/lib/tftpboot"
+
+# Enable inetd start at boot:
+
+sudo update-inetd --enable BOOT
+sudo service tftpd-hpa start
+
+# Confirm TFTP is listeing:
+sudo netstat -lu
+
+# Output should appear as follows:
+
+Proto Recv-Q Send-Q Local Address Foreign Address State
+udp 0 0 *:tftp *:*
+
+#Create directory path for pxe-boot files:
+sudo mkdir /var/lib/tftpboot
+sudo mkdir /var/lib/tftpboot/pxelinux.cfg
+sudo mkdir -p /var/lib/tftpboot/Ubuntu/14.04/amd64/
+
+# Copy the contents of syslinux, the pxe boot loader, to their newly created destinations in the tftp directory path.
+sudo cp /usr/lib/syslinux/vesamenu.c32 /var/lib/tftpboot/
+sudo cp /usr/lib/syslinux/pxelinux.0 /var/lib/tftpboot/
+
+# Set up the pxelinux configuration files. Begin with the pxelinux.cfg/default file:
+sudo vi /var/lib/tftpboot/pxelinux.cfg/default
+
+DEFAULT vesamenu.c32
+TIMEOUT 100
+PROMPT 0
+MENU INCLUDE pxelinux.cfg/PXE.conf
+NOESCAPE 1
+LABEL Try Ubuntu 14.04 Desktop
+MENU LABEL Try Ubuntu 14.04 Desktop
+kernel Ubuntu/vmlinuz.efi
+#The following, i.e., "append . . . initrd.lz" should be included on one line.
+append boot=casper netboot=nfs nfsroot=192.168.1.20:/var/lib/tftpboot/Ubuntu/14.04/amd64 initrd=Ubuntu/initrd.lz 
+ENDTEXT
+LABEL Install Ubuntu 14.04 Desktop
+MENU LABEL Install Ubuntu 14.04 Desktop
+kernel Ubuntu/vmlinuz.efi
+#The following, i.e., "append . . . initrd.lz" should be included on one line.
+append boot=casper automatic-ubiquity netboot=nfs nfsroot=192.168.1.20:/var/lib/tftpboot/Ubuntu/14.04/amd64 initrd=Ubuntu/initrd.lz 
+ENDTEXT
+
+# Proceed with the pxelinux.cfg/pxe.conf (boot menu description file):
+sudo vi /var/lib/tftpboot/pxelinux.cfg/pxe.conf
+
+MENU TITLE PXE Server
+NOESCAPE 1
+ALLOWOPTIONS 1
+PROMPT 0
+MENU WIDTH 80
+MENU ROWS 14
+MENU TABMSGROW 24
+MENU MARGIN 10
+MENU COLOR border 30;44 #ffffffff #00000000 std
+
+# Add Ubuntu 14.04 desktop boot images to pxe server.
+sudo cd /mnt
+sudo wget http://releases.ubuntu.com/14.04/ubuntu-14.04.3-desktop-amd64.iso
+
+sudo mount -o loop /mnt/ubuntu-14.04.3-desktop-amd64.iso /media/
+sudo cp -r /media/* /var/lib/tftpboot/Ubuntu/14.04/amd64/
+sudo cp -r /media/.disk /var/lib/tftpboot/Ubuntu/14.04/amd64/
+sudo cp /media/casper/initrd.lz /media/casper/vmlinuz.efi /var/lib/tftpboot/Ubuntu/
+
+# Configure NFS server to export iso contents to requesting clients at boot.
+
+sudo vi /etc/exports
+
+# Add to last line:
+/var/lib/tftpboot/Ubuntu/14.04/amd64 *(ro,async,no_root_squash,no_subtree_check)
+
+# After saving and exiting the file, enter the following commands to export the share and start the nfs-kernel-server:
+
+sudo exportfs -a
+sudo /etc/init.d/nfs-kernel-server start
+
+
+
+
+
+
+
+
+
