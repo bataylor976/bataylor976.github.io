@@ -1,3 +1,4 @@
+# Build and configure PXE-Server using Ubuntu-14.04.
 # Install dhcp, tfpt, nfs, and download syslinux
 sudo apt-get install isc-dhcp-Server inetutils-inetd tftpd-hpa syslinux nfs-kernel-Server
 
