@@ -1,0 +1,480 @@
+How To:
+
+untar and zip to a specified directory:
+
+tar xvzf archive.tar.gz -C /target/directory
+
+Disable ipv6
+ open /etc/sysctl.conf
+append the following lines: 
+net.ipv6.conf.all.disable_ipv6 = 1
+net.ipv6.conf.default.disable_ipv6 = 1
+net.ipv6.conf.lo.disable_ipv6 = 1 
+
+sudo sysctl -p
+cat /proc/sys/net/ipv6/conf/all/disable_ipv6
+
+Add user to sudoers:
+
+sudo adduser <username> sudo
+
+Wireless without network-manager:
+
+wpa_passphrase "SSID" "password"
+
+returns:
+network={
+	ssid="Ben's Wi-fi Zone"
+	#psk="password"
+	psk=917a8c65be889d7d9071848c3a5ff825601066f4181a060a3f0fff6c0831b592
+}
+
+edit /etc/wpa_supplicant.conf:
+
+ctrl_interface=DIR=/var/run/wpa_supplicant
+network={
+        ssid="Ben's Wi-fi Zone"
+        scan_ssid=1
+        key_mgmt=WPA-PSK
+        psk=917a8c65be889d7d9071848c3a5ff825601066f4181a060a3f0fff6c0831b592
+}
+
+edit /etc/network/interfaces
+auto wlan0
+iface wlan0 inet static
+address 192.168.1.100
+netmask 255.255.255.0
+wireless-essid "Ben's Wi-fi Zone"
+gateway 192.168.1.254
+pre-up wpa_supplicant -Bw -Dwext -iwlan0 -c/etc/wpa_supplicant.conf
+post-down killall -q wpa_supplicant
+
+
+wpa_supplicant -B -Diwlwifi,wext -c/etc/wpa_supplicant.conf -iwlan0 -d
+
+finally, deal with routing tables by deleting and adding routes.
+route del -net 10.0.3.0 gw 0.0.0.0 netmask 255.255.255.0 dev lxcbr0
+route add -net 10.0.3.0 gw 10.0.3.1 netmask 255.255.255.0 dev lxcbr0
+route del -net 169.254.0.0 gw 0.0.0.0 netmask 255.255.0.0 dev eth0
+route add -net 192.168.1.0 gw 0.0.0.0 netmask 255.255.255.0 dev wlan0
+route add default gw 192.168.1.254
+
+
+Turn off "waiting for network configuration" messages at boot:
+/etc/init/failsafe.conf
+comment out 20, 40, and 59 seconds lines.
+
+Create aliases:
+alias <alias name>="<command>"
+#append same to .bash_aliases file in ~
+
+change hostname w/out restarting machine
+sudo hostname
+
+repair if ~/Desktop is the same as Home directory:
+
+open .config in ~.
+change . . .
+# This file is written by xdg-user-dirs-update
+# If you want to change or add directories, just edit the line you're
+# interested in. All local changes will be retained on the next run
+# Format is XDG_xxx_DIR="$HOME/yyy", where yyy is a shell-escaped
+# homedir-relative path, or XDG_xxx_DIR="/yyy", where /yyy is an
+# absolute path. No other format is supported.
+#
+XDG_DESKTOP_DIR="$HOME/"
+XDG_DOWNLOAD_DIR="$HOME/Downloads"
+XDG_TEMPLATES_DIR="$HOME/"
+XDG_PUBLICSHARE_DIR="$HOME/"
+XDG_DOCUMENTS_DIR="$HOME/Documents"
+XDG_MUSIC_DIR="$HOME/"
+XDG_PICTURES_DIR="$HOME/"
+XDG_VIDEOS_DIR="$HOME/"
+
+to this:
+# This file is written by xdg-user-dirs-update
+# If you want to change or add directories, just edit the line you're
+# interested in. All local changes will be retained on the next run
+# Format is XDG_xxx_DIR="$HOME/yyy", where yyy is a shell-escaped
+# homedir-relative path, or XDG_xxx_DIR="/yyy", where /yyy is an
+# absolute path. No other format is supported.
+#
+XDG_DESKTOP_DIR="$HOME/Desktop"
+XDG_DOWNLOAD_DIR="$HOME/Downloads"
+XDG_TEMPLATES_DIR="$HOME/"
+XDG_PUBLICSHARE_DIR="$HOME/"
+XDG_DOCUMENTS_DIR="$HOME/Documents"
+XDG_MUSIC_DIR="$HOME/"
+XDG_PICTURES_DIR="$HOME/"
+XDG_VIDEOS_DIR="$HOME/"
+
+Mount iso in FreeBSD 9.3:
+
+mdconfig -a -t vnode -f PATH_TO_YOUR_ISO/ISOFILE.iso
+mount -t cd9660 /dev/mdX /media
+[returns mdX -- x = int]
+Once umounted, you can destroy mdX
+
+
+
+Transfer public key:
+
+ssh-copy-id <username>@<host>
+
+
+install paramiko
+conda install paramiko
+
+or 
+pip install ecdsa
+
+or 
+sudo apt-get install python-paramiko
+
+install pyro4
+pip install pyro4
+sudo pip install pyro4
+
+grep above and below a line
+
+<command> | grep -A 1 -B 1 <keyword>
+
+string substitute in vim:
+[replace all instances of foo with bar]
+:%s/foo/bar/g
+
+Install ubuntu desktop:
+sudo apt-get install ubuntu-desktop
+
+Install pyfuzz:
+
+NOTE: ~/anaconda2/lib/python2.7/site-packages/pyfuzz/generator.py
+I modified the generator.py script:
+I changed 'import Image' to 'from PIL import Image'
+
+NOTE: 1-30-16: ran conda install -c https://conda.anaconda.org/auto pyfuzz
+because pip intall pyfuzz didn't exactly work. Upon running above command, I noticed: The following packages will be DOWNGRADED:
+
+    numpy:     1.10.2-py27_0 --> 1.8.2-py27_1
+
+pip install pyfuzz
+
+Upgrade pip:
+
+pip install --upgrade pip
+
+install latest version of java
+sudo apt-get install default-jre
+
+Install telnet:
+sudo apt-get install xinetd telnetd
+
+FTP to Freenas:
+
+ftp 10.1.1.30
+enter username and password
+put (path to local file)
+(enter name of remote file)
+transfer complete
+
+install python pcapy for anaconda:
+
+download tar.gz. Unzipped, and run:
+python setup.py install
+
+install python-pcapy:
+
+sudo apt-get intall python-pcapy
+
+Comment out multiple lines in vim:
+
+To comment out blocks in vim:
+
+    1. press Esc (to leave editing or other mode)
+    2. hit ctrl + v (visual block mode)
+    3. use the up/down arrow keys to select lines you want (it won't highlight everything - it's OK!)
+    4. Shift + i (capital I)
+    5. insert the text you want, i.e. '% '
+    6. press Esc.
+
+Copy the file "foobar.txt" from a remote host to the local host
+
+    $ scp your_username@remotehost.edu:foobar.txt /some/local/directory
+
+scp multiple files from remote host to a local directory
+
+scp console@jaguar:/home/console/\{lxc-cscript2.c.orig,lxc-cscript2.c,lxc-cscript2.7} .
+
+Edit your .bashrc (append to last line) or prepend the Anaconda2 install location:
+
+$ export PATH=/home/pupi/anaconda2/bin:$PATH
+
+Thank you for installing Anaconda2!
+
+
+
+how to ssh into virtualbox guest:
+ssh -p 22 taylor@127.0.0.1
+
+open ssh port on virtualbox guest:
+VBoxManage modifyvm "PyNetPro" --natpf1 "guestssh,tcp,,22,,22"
+
+change virtualbox nat range:
+VBoxManage modifyvm "VM name" --natnet1 192.168.1/24
+
+generate rsa keys on a cisco IOS router:
+Router(config)# crypto key generate rsa
+
+Delete keys:
+crypto key zeroize rsa
+
+debian 7 install mysqldb for python
+
+apt-get install build-essential python-dev libmysqlclient-dev
+pip install MySQL-python
+
+mysql
+
+sudo apt-get install mysql-server
+
+sudo apt-get install python-scapy
+
+python pysnmp
+apt-get install python-pysnmp-common
+
+python-networkx
+pip install networkx
+
+python-matplotlib
+apt-get build-dep python-matplotlib
+apt-get install python-matplotlib
+
+cat output to file with date & timestamps:
+sudo iptables -L > iptables-l.txt-`date +%F`-`date +%T`
+
+iptables: 
+
+iptables-persistent:
+sudo apt-get install iptables-persistent
+
+test syntax for /etc/iptables/rules.v4
+sudo iptables-restore -t /etc/iptables/rules.v4
+
+save firewall rules:
+sudo invoke-rc.d iptables-persistent save
+
+check rulves.v4 file for syntactical correctness:
+sudo ip4tables-restore -t /etc/iptables/rules.v6
+
+
+reload after altering rules.v4 file:
+udo service iptables-persistent reload
+
+iptables rules filepath:
+/etc/iptables/rules.v4
+/etc/iptables/rules.v6
+
+
+Targets: When the defined pattern matches, the action that takes place is called a target. A target can be a final policy decision for the packet, such as accept, or drop. It can also be move the packet to a different chain for processing, or simply log the encounter. There are many options.
+
+These rules are organized into groups called chains. A chain is a set of rules that a packet is checked against sequentially. When the packet matches one of the rules, it executes the associated action and is not checked against the remaining rules in the chain.
+
+A user can create chains as needed. There are three chains defined by default. They are:
+
+    INPUT: This chain handles all packets that are addressed to your server.
+    OUTPUT: This chain contains rules for traffic created by your server.
+    FORWARD: This chain is used to deal with traffic destined for other servers that are not created on your server. This chain is basically a way to configure your server to route requests to other machines.
+
+
+get my own IP address and save it to a variable in a shell script
+
+ip="$(ifconfig | grep -A 1 'eth0' | tail -1 | cut -d ':' -f 2 | cut -d ' ' -f 1)"
+
+giving only the "eth0" IP address and not any sub-interfaces (eth0:0, eth0:1, etc.): 
+
+ip="$(ifconfig | grep -v 'eth0:' | grep -A 1 'eth0' | tail -1 | cut -d ':' -f 2 | cut -d ' ' -f 1)"
+
+
+'du' - Finding the size of a directory
+
+$ du
+Typing the above at the prompt gives you a list of directories that exist in the current directory along with their sizes. The last line of the output gives you the total size of the current directory including its subdirectories. The size given includes the sizes of the files and the directories that exist in the current directory as well as all of its subdirectories. Note that by default the sizes given are in kilobytes.
+
+
+$ du /home/david
+The above command would give you the directory size of the directory /home/david
+
+
+$ du -h
+This command gives you a better output than the default one. The option '-h' stands for human readable format. So the sizes of the files / directories are this time suffixed with a 'k' if its kilobytes and 'M' if its Megabytes and 'G' if its Gigabytes.
+
+
+$ du -ah
+This command would display in its output, not only the directories but also all the files that are present in the current directory. Note that 'du' always counts all files and directories while giving the final size in the last line. But the '-a' displays the filenames along with the directory names in the output. '-h' is once again human readable format.
+
+
+$ du -c
+This gives you a grand total as the last line of the output. So if your directory occupies 30MB the last 2 lines of the output would be
+
+30M .
+30M total
+
+The first line would be the default last line of the 'du' output indicating the total size of the directory and another line displaying the same size, followed by the string 'total'. This is helpful in case you this command along with the grep command to only display the final total size of a directory as shown below.
+
+
+$ du -ch | grep total
+This would have only one line in its output that displays the total size of the current directory including all the subdirectories.
+
+Note : In case you are not familiar with pipes (which makes the above command possible) refer to Article No. 24 . Also grep is one of the most important commands in Unix. Refer to Article No. 25 to know more about grep.
+
+
+$ du -s
+This displays a summary of the directory size. It is the simplest way to know the total size of the current directory.
+
+
+$ du -S
+This would display the size of the current directory excluding the size of the subdirectories that exist within that directory. So it basically shows you the total size of all the files that exist in the current directory.
+
+
+$ du --exculde=mp3
+The above command would display the size of the current directory along with all its subdirectories, but it would exclude all the files having the given pattern present in their filenames. Thus in the above case if there happens to be any mp3 files within the current directory or any of its subdirectories, their size would not be included while calculating the total directory size.
+
+install pyautogui
+
+
+    sudo pip3 install python3-xlib
+
+    sudo apt-get scrot
+
+    sudo apt-get install python3-tk
+
+    sudo apt-get install python3-dev
+   
+    sudo apt-get install libtiff5-dev libjpeg8-dev zlib1g-dev \
+    libfreetype6-dev liblcms2-dev libwebp-dev tcl8.6-dev tk8.6-dev python-tk
+
+    sudo pip3 install pyautogui
+
+
+install module w/ pip3
+sudo pip3 install <module-name>
+
+install pip for python3:
+sudo apt-get install python3-pip
+
+Install selenium under python3:
+sudo pip3 install -U selenium 
+
+redirect output/errors to textfile:
+
+Use 2> to redirect stderr output to a textfile: 
+foo > stdout.txt 2> stderr.txt
+
+For both output and stderr in the same file:
+foo > allout.txt 2>&1
+
+Note: this works in (ba)sh, check your shell for proper syntax
+
+
+Open browser developer tools:
+firefox: Ctrl + Shift + C
+chrome: f12
+
+Remove a user from sudo group (ubuntu):
+
+sudo deluser <username> sudo
+
+Remove desktop manager from ubuntu:
+
+sudo apt-get remove --purge network-manager-gnome network-manager
+
+To correct the following ntp error: ntpdate[744]: Can't adjust the time of day: Operation not permitted
+dpkg-reconfigure tzdata
+
+To check the version of an installed program, for example:
+
+dpkg -l <program-name>
+
+apt-cache show <program-name>
+
+
+scp from single to multiple hosts:
+for i in `cat dest-scp.txt` ; do scp wsadduser-2.0-4.ORNL.amd64.deb "$i":~; scp wspasswd_3.0.0-6.UBUNTU1404_amd64.deb "$i":~ ; done
+
+apt-get "yes"
+
+apt-get -y upgrade
+
+Check Centos version via cli:
+cat /etc/centos-release
+
+
+How to show which network driver I'm using
+
+Options:
+
+dmesg | grep "Ethernet driver"
+
+sudo lshw | less
+
+Return to previous working directory
+
+cd -
+
+Check if a package is installed:
+dpkg -l <package_name>
+
+Copy and Paste in Vim
+
+Here is how to cut-and-paste or copy-and-paste text using a visual selection in Vim.
+
+Cut and paste:
+
+    Position the cursor where you want to begin cutting.
+    Press v to select characters (or uppercase V to select whole lines).
+    Move the cursor to the end of what you want to cut.
+    Press d to cut (or y to copy).
+    Move to where you would like to paste.
+    Press P to paste before the cursor, or p to paste after. 
+
+Copy and paste is performed with the same steps except for step 4 where you would press y instead of d:
+
+    d = delete = cut
+    y = yank = copy 
+http://vim.wikia.com/wiki/Copy,_cut_and_paste
+
+...find IMEI on Tracfone:
+
+*#06#
+IMEI:
+01329400291260203
+
+Open cmos setup in microway: delete key
+Scylla requires an external DVD drive to load a new OS.
+
+...determine version of Ubuntu:
+
+user@ubuntu:~$ lsb_release -a
+No LSB modules are available.
+Distributor ID:	Ubuntu
+Description:	Ubuntu 14.04.3 LTS
+Release:	14.04
+Codename:	trusty
+
+. . . restore time and date to Unity desktop panel.
+
+http://itsfoss.com/fix-date-time-missing-menu-bar-ubuntu-1310/
+
+Either:
+
+sudo apt-get install indicator-datetime
+sudo dpkg-reconfigure --frontend noninteractive tzdata
+sudo killall unity-panel-service
+
+Or:
+sudo restart lightdm
+
+
+
+
+
