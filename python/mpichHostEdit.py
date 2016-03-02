@@ -47,7 +47,7 @@ def fileReplace():
     import time
     port = 22
     username = "ubuntu"
-    password = "admin6012"
+    password ="XXXXXXX"
     ipList = []
     hosts = open("/etc/hosts", "r")
     for line in hosts:

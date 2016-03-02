@@ -8,7 +8,7 @@ import paramiko
 import time
 port = 22
 username = "mpiu"
-password = "admin6012"
+password = "XXXXXX"
 
 ipList = []
 hosts = open("/etc/hosts", "r")
