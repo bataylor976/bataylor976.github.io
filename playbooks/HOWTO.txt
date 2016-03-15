@@ -1,10 +1,32 @@
 How To:
 
-untar and zip to a specified directory:
+#dd
+dd if=/dev/sdb of=/dev/sda1 bs=512 conv=noerror,syn
+
+#To check dd's progress
+pgrep -l '^dd$'		# gives you dd's pid
+
+#Or, send interrupt signal to dd
+kill -USR1 $pid
+
+#Or, view -n secs interval'd reports on dd:
+watch -n 10 kill -USR1 6757
+
+
+#how to switch to netcat-traditional
+sudo update-alternatives --config nc
+
+#Convert vmdk to virtualbox vdi:
+
+qemu-img convert ubuntu-biz1404-disk1.vmdk ubuntubiz14.04.bin
+VBoxManage convertdd ubuntubiz14.04.bin ubuntu-biz14.04.vdi
+
+#untar and zip to a specified directory:
 
 tar xvzf archive.tar.gz -C /target/directory
 
-Disable ipv6
+#Disable ipv6
+
  open /etc/sysctl.conf
 append the following lines: 
 net.ipv6.conf.all.disable_ipv6 = 1
@@ -14,15 +36,15 @@ net.ipv6.conf.lo.disable_ipv6 = 1
 sudo sysctl -p
 cat /proc/sys/net/ipv6/conf/all/disable_ipv6
 
-Add user to sudoers:
+#Add user to sudoers:
 
 sudo adduser <username> sudo
 
-Wireless without network-manager:
+# Wireless without network-manager:
 
 wpa_passphrase "SSID" "password"
 
-returns:
+#returns:
 network={
 	ssid="Ben's Wi-fi Zone"
 	#psk="password"
@@ -39,7 +61,7 @@ network={
         psk=917a8c65be889d7d9071848c3a5ff825601066f4181a060a3f0fff6c0831b592
 }
 
-edit /etc/network/interfaces
+# edit /etc/network/interfaces
 auto wlan0
 iface wlan0 inet static
 address 192.168.1.100
@@ -52,15 +74,17 @@ post-down killall -q wpa_supplicant
 
 wpa_supplicant -B -Diwlwifi,wext -c/etc/wpa_supplicant.conf -iwlan0 -d
 
-finally, deal with routing tables by deleting and adding routes.
+#finally, deal with routing tables by deleting and adding routes.
 route del -net 10.0.3.0 gw 0.0.0.0 netmask 255.255.255.0 dev lxcbr0
 route add -net 10.0.3.0 gw 10.0.3.1 netmask 255.255.255.0 dev lxcbr0
 route del -net 169.254.0.0 gw 0.0.0.0 netmask 255.255.0.0 dev eth0
 route add -net 192.168.1.0 gw 0.0.0.0 netmask 255.255.255.0 dev wlan0
 route add default gw 192.168.1.254
+# or to bb (on bbgw01) to testfw
+route add -net 192.168.1.0 netmask 255.255.255.0 gw 10.0.203.149
 
 
-Turn off "waiting for network configuration" messages at boot:
+# Turn off "waiting for network configuration" messages at boot:
 /etc/init/failsafe.conf
 comment out 20, 40, and 59 seconds lines.
 
@@ -68,7 +92,7 @@ Create aliases:
 alias <alias name>="<command>"
 #append same to .bash_aliases file in ~
 
-change hostname w/out restarting machine
+# change hostname w/out restarting machine
 sudo hostname
 
 repair if ~/Desktop is the same as Home directory:
@@ -108,7 +132,7 @@ XDG_MUSIC_DIR="$HOME/"
 XDG_PICTURES_DIR="$HOME/"
 XDG_VIDEOS_DIR="$HOME/"
 
-Mount iso in FreeBSD 9.3:
+# Mount iso in FreeBSD 9.3:
 
 mdconfig -a -t vnode -f PATH_TO_YOUR_ISO/ISOFILE.iso
 mount -t cd9660 /dev/mdX /media
@@ -117,7 +141,7 @@ Once umounted, you can destroy mdX
 
 
 
-Transfer public key:
+# Transfer public key:
 
 ssh-copy-id <username>@<host>
 
