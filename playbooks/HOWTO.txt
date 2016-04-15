@@ -1,5 +1,15 @@
 How To:
 
+# Output percentage memory usage per user:
+for USER in $(ps haux | awk '{print $1}' | sort -u)
+do
+    ps haux | awk -v user=$USER '$1 ~ user { sum += $4 } END { print user, sum; }'
+done
+
+# Output every process and its memory usage in human readable (megabytes).
+# Sorted by memory size -- highest to lowest.
+ps -eo size,pid,user,command --sort -size | awk '{ hr=$1/1024 ; printf("%13.2f Mb ",hr) } { for ( x=4 ; x<=NF ; x++ ) { printf("%s ",$x) } print "" }'
+
 # Memory management flag files to /proc:
 sudo sh -c "sync; echo 3 > /proc/sys/vm/drop_caches"
 
