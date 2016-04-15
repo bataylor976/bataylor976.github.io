@@ -1,5 +1,11 @@
 How To:
 
+# Memory management flag files to /proc:
+sudo sh -c "sync; echo 3 > /proc/sys/vm/drop_caches"
+
+# Persistently resize swappinness in sysctl.conf:
+sudo sh -c "sync; echo 3 > /proc/sys/vm/drop_caches"
+
 #dd
 dd if=/dev/sdb of=/dev/sda1 bs=512 conv=noerror,syn
 
@@ -292,7 +298,7 @@ sudo ip4tables-restore -t /etc/iptables/rules.v6
 
 
 reload after altering rules.v4 file:
-udo service iptables-persistent reload
+sudo service iptables-persistent reload
 
 iptables rules filepath:
 /etc/iptables/rules.v4
