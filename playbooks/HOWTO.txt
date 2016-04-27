@@ -424,15 +424,15 @@ foo > allout.txt 2>&1
 #Note: this works in (ba)sh, check your shell for proper syntax
 
 
-Open browser developer tools:
+#Open browser developer tools:
 firefox: Ctrl + Shift + C
 chrome: f12
 
-Remove a user from sudo group (ubuntu):
+#Remove a user from sudo group (ubuntu):
 
 sudo deluser <username> sudo
 
-Remove desktop manager from ubuntu:
+#Remove desktop manager from ubuntu:
 
 sudo apt-get remove --purge network-manager-gnome network-manager
 
@@ -531,7 +531,8 @@ find / -type f -name "*.conf"
 
 ./a.out 2>&1 | tee output
 
-
+#awk: return row 2, 7th column 
+awk 'NR==2 {print $7}' free.txt
 
 
 
