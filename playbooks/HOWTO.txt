@@ -162,7 +162,7 @@ Once umounted, you can destroy mdX
 ssh-copy-id <username>@<host>
 
 
-install paramiko
+# install paramiko
 conda install paramiko
 
 or 
@@ -175,11 +175,19 @@ install pyro4
 pip install pyro4
 sudo pip install pyro4
 
-grep above and below a line
+# grep above and below a line
 
 <command> | grep -A 1 -B 1 <keyword>
 
-string substitute in vim:
+# grep every line that does not contain a particular string patterm
+
+grep -v
+
+# grep show line numbers
+grep -n
+
+
+# string substitute in vim:
 [replace all instances of foo with bar]
 :%s/foo/bar/g
 
@@ -396,24 +404,24 @@ install pyautogui
     sudo pip3 install pyautogui
 
 
-install module w/ pip3
+#install module w/ pip3
 sudo pip3 install <module-name>
 
-install pip for python3:
+#install pip for python3:
 sudo apt-get install python3-pip
 
-Install selenium under python3:
+#Install selenium under python3:
 sudo pip3 install -U selenium 
 
-redirect output/errors to textfile:
+#redirect output/errors to textfile:
 
-Use 2> to redirect stderr output to a textfile: 
+#Use 2> to redirect stderr output to a textfile: 
 foo > stdout.txt 2> stderr.txt
 
-For both output and stderr in the same file:
+#For both output and stderr in the same file:
 foo > allout.txt 2>&1
 
-Note: this works in (ba)sh, check your shell for proper syntax
+#Note: this works in (ba)sh, check your shell for proper syntax
 
 
 Open browser developer tools:
@@ -464,11 +472,12 @@ cd -
 Check if a package is installed:
 dpkg -l <package_name>
 
-Copy and Paste in Vim
+# Copy and Paste in Vim
 
-Here is how to cut-and-paste or copy-and-paste text using a visual selection in Vim.
+#Here is how to cut-and-paste or copy-and-paste text using a visual selection 
+#in Vim.
 
-Cut and paste:
+#Cut and paste:
 
     Position the cursor where you want to begin cutting.
     Press v to select characters (or uppercase V to select whole lines).
@@ -492,7 +501,7 @@ IMEI:
 Open cmos setup in microway: delete key
 Scylla requires an external DVD drive to load a new OS.
 
-...determine version of Ubuntu:
+#...determine version of Ubuntu:
 
 user@ubuntu:~$ lsb_release -a
 No LSB modules are available.
@@ -513,6 +522,15 @@ sudo killall unity-panel-service
 
 Or:
 sudo restart lightdm
+
+# find command
+find / -type f -name "*.conf"
+
+# Use "tee" to redirect to a file and the screen. Depending on the shell you 
+# use, you first have to redirect stderr to stdout using
+
+./a.out 2>&1 | tee output
+
 
 
 
