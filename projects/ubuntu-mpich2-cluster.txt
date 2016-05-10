@@ -4,7 +4,7 @@
 # In this demonstration, we have four nodes running Ubuntu Server 12.04 with these 
 # host names: # mpich00, mpich01, mpich02, and mpich03.
 
-[The following diagram generalized depiction of the cluster to be built!](project-imgs/mpich-diagram.png)
+![The following diagram generalized depiction of the cluster to be built.](project-imgs/mpich-diagram.png?raw=true "Cluster Diagram")
 
 # Define hostnames in /etc/hosts/
 # Edit /etc/hosts so that it looks like the example below: 
