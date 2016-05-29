@@ -1,5 +1,61 @@
 How To:
 
+# Allow X11 port forwarding on Jaguar:
+#Appended to /etc/bash.bashrc file:
+
+if [ -n "$SSH_CLIENT" ] || [ -n "$SSH_CONNECTION" ]; then
+    export DISPLAY=localhost:10.0
+fi
+
+# /etc/ssh/sshd_config
+X11Forwarding yes
+X11DisplayOffset 10
+PrintMotd no
+PrintLastLog yes
+TCPKeepAlive yes
+AllowTcpForwarding yes
+X11UseLocalHost yes
+AddressFamily inet
+
+
+# Remove all instances of a word in a file w/ sed.
+word='the'
+sed -r "s/\b$word\b//g"
+
+# Change SELinux permissions with sed.
+sed -i 's/^SELINUX=permissive/' /etc/selinux/config
+
+# sed examples
+# How to add a header line say  "Employee, EmpId"  to this file using sed?
+$ sed  '1i Employee, EmpId'  empFile
+
+# To modify the file:
+sed -i '1i Employee, EmpId' empFile.txt
+
+# Add a record to the empFile.txt
+# used a pattern. /Hilesh/a tells to include the following contents after 
+# finding the pattern 'Hilesh'
+sed -i '/Hilesh/a Bharti, 1002' empFile.txt
+
+# add employee Aparna before the Harshal:
+sed -i '/Harshal/i Aparna, 1003' empFile.txt
+
+# 1. To remove a specific character, say 'a'
+$ sed 's/a//' file
+
+# To remove 1st character in every line:
+
+$ sed 's/^.//' file
+
+# To remove last character of every line :
+
+$ sed 's/.$//' file
+
+
+
+# print disk usage by % but filter out irrelevant information
+df -H | grep -vE '^Filesystem|tmpfs|cdrom' | awk '{ print $5 " " $1 }'
+
 # Output percentage memory usage per user:
 for USER in $(ps haux | awk '{print $1}' | sort -u)
 do
@@ -111,10 +167,12 @@ alias <alias name>="<command>"
 # change hostname w/out restarting machine
 sudo hostname
 
-repair if ~/Desktop is the same as Home directory:
+# repair if ~/Desktop is the same as Home directory:
+vi .config/user-dirs.dirs
 
-open .config in ~.
-change . . .
+# Append Desktop/ to the line: XDG_DESKTOP_DIR="$HOME/"
+# For example, change this . . . 
+
 # This file is written by xdg-user-dirs-update
 # If you want to change or add directories, just edit the line you're
 # interested in. All local changes will be retained on the next run
@@ -131,7 +189,8 @@ XDG_MUSIC_DIR="$HOME/"
 XDG_PICTURES_DIR="$HOME/"
 XDG_VIDEOS_DIR="$HOME/"
 
-to this:
+# to this . . . 
+
 # This file is written by xdg-user-dirs-update
 # If you want to change or add directories, just edit the line you're
 # interested in. All local changes will be retained on the next run
@@ -139,7 +198,7 @@ to this:
 # homedir-relative path, or XDG_xxx_DIR="/yyy", where /yyy is an
 # absolute path. No other format is supported.
 #
-XDG_DESKTOP_DIR="$HOME/Desktop"
+XDG_DESKTOP_DIR="$HOME/Desktop/"
 XDG_DOWNLOAD_DIR="$HOME/Downloads"
 XDG_TEMPLATES_DIR="$HOME/"
 XDG_PUBLICSHARE_DIR="$HOME/"
@@ -533,6 +592,8 @@ find / -type f -name "*.conf"
 
 #awk: return row 2, 7th column 
 awk 'NR==2 {print $7}' free.txt
+
+
 
 
 
