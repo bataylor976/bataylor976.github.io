@@ -43,7 +43,7 @@ fi
 
 # Check binutils installation
 #MYBINUa=ld --version | head -n1 | cut -d" " -f7 | cut -d"." -f1
-MYBINUb=ld --version | head -n1 | cut -d" " -f7 | cut -d"." -f2
+MYBINUb=$(ld --version | head -n1 | cut -d" " -f7 | cut -d"." -f2)
 #LFSBINMINa=2
 LFSBINMINb=17
 #LFSBINMAXa=2
@@ -54,17 +54,21 @@ then
 else
     LFSBINFLAG=y
 fi
+unset LFSBINMINb && unset LFSBINMAXb
 
 # Check bison installation
 MYBIS=$(whereis bison)
 BISMINa=2
 BISMINb=3
-if [ "$MYBIS" -eq "bison:" ]
+if [ "$MYBIS" == "bison:" ]
 then 
     echo "Bison is not installed."
     apt-get update && apt-get -y install bison
     echo "Bison installed."
 fi
+
+unset BISMINa
+unset BISMINb
 
 # Checking if installed bison version meets requirements.
 MYBISa=$(bison --version | head -n1 | cut -d" " -f4 | cut -d"." -f1)
@@ -80,6 +84,7 @@ else
     echo "Installing bison . . . "
     apt-get update && apt-get -y install bison
 fi
+unset MYBISa && unset MYBISb
 
 
 # Checking YACC.
@@ -105,22 +110,102 @@ LFSBZb=4
 if [ "$MYBZa" -eq "$LFSBZa" ] && [ "$MYBZb" -ge "$LFSBZb" ]
 then
    echo "Your bzip2 version meets requirements"
+fi
 
 #Checking coreutils
 MYCOREa=$(chown --version | head -n1 | cut -d")" -f2 | cut -d" " -f2 | cut -d"." -f1)
 MYCOREb=$(chown --version | head -n1 | cut -d")" -f2 | cut -d" " -f2 | cut -d"." -f2)
-#echo -n "Coreutils: "; chown --version | head -n1 | cut -d")" -f2
-diff --version | head -n1
-find --version | head -n1
-gawk --version | head -n1
+LFSCOREa=6
+LFSCOREb=9
 
-if [ -h /usr/bin/awk ]; then
-  echo "/usr/bin/awk -> `readlink -f /usr/bin/awk`";
-elif [ -x /usr/bin/awk ]; then
-  echo awk is `/usr/bin/awk --version | head -n1`
-else 
-  echo "awk not found" 
+if [ "$MYCOREa" -gt "$LFSCOREa" ]; then
+  echo "Coreutils version meets requirements"
+elif [ "$MYCOREa" -eq "$LFSCORa" ] && [ "$MYCOREb" -ge "$MYCORE" ]; then
+  echo "Coreutils version meets requirements"
+else
+  echo "Coreutils does not meet requirements"
+  apt-get update && apt-get install coreutils
 fi
+  
+# Checking diff version
+MYDIFa=$(diff --version | head -n1 | cut -d" " -f4 | cut -d"." -f1)
+MYDIFb=$(diff --version | head -n1 | cut -d" " -f4 | cut -d"." -f2)
+LFSDIFa=2
+LFSDIFb=8
+if [ "$MYDIFa" -gt "$LFSDIFa" ]; then
+  echo "Diffutils meets requirements"
+elif [ "$MYDIFa" -eq "$LFSDIFa" ] && [ "$MYDIFb" -ge "$LFSDIFb" ]; then
+  echo "Diffutils meets requirements"
+else
+  echo "Diffutils does not meet requirements"
+  echo "Installing diffutils . . ."
+  apt-get update && apt-get -y install diffutils
+  echo
+  echo "Diffutils installed"
+fi
+
+# Checking 
+MYFINDa=$(find --version | head -n1 | cut -d" " -f4 | cut -d"." -f1)
+MYFINDb=$(find --version | head -n1 | cut -d" " -f4 | cut -d"." -f2)
+LFSFINDa=4
+LFSFINDb=2
+if [ "$MYFINDa" -eq "$LFSFINDa" ] && [ "$MYFINDb" -ge "$LFSFINDb" ]; then
+  echo "Findutils meets requirements"
+else
+  echo "Findutils does not meet requirements"
+  echo "Installing findutils . . . "
+  apt-get update && apt-get install findutils
+fi
+
+#Checking gawk version
+MYGAWK=$(whereis gawk)
+if [ "$MYGAWK" == "gawk:" ]
+then
+    echo "Gawk not installed"
+    echo
+    echo "Installing gawk . . ."
+    echo
+    apt-get update 
+    echo
+    apt-get -y install gawk
+else
+    MYGAWKa=$(gawk --version | head -n1 | cut -d" " -f3 | cut -d"." -f1)
+    MYGAWKb=$(gawk --version | head -n1 | cut -d" " -f3 | cut -d"." -f2)
+    MYGAWKc=$(gawk --version | head -n1 | cut -d" " -f3 | cut -d"." -f3)
+    LFSGAWKa=4
+    LFSGAWKb=0
+    LFSGAWKc=1
+    if [ "$MYGAWKa" == "$LFSGAWKa" ] && [ "$MYGAWKb" > "$LFSGAWKb" ]
+    then
+        echo "Gawk meets minimum requirements"
+    elif [ "$MYGAWKa" == "$LFSGAWKa" ] && [ "$MYGAWKb" == "$LFSGAWKb" ] && [ "$MYGAWKc" >= "$LFSGAWKc" ] 
+    then
+        echo "Gawk meets minimum requirements"
+    else
+        echo "Gawk does not meet minimum requirements"
+    fi
+fi
+
+#Checking if '/usr/bin/awk' is a symlink to '/usr/bin/gawk'
+if [ `readlink -f /usr/bin/awk` == "/usr/bin/gawk" ]
+then
+    echo "/usr/bin/awk is a symlink to /usr/bin/gawk" 
+else 
+    echo "No symlink to gawk"
+    ln -sf /usr/bin/gawk /usr/bin/awk
+fi
+
+if [ -h /usr/bin/awk ]
+then
+    echo "/usr/bin/awk -> `readlink -f /usr/bin/awk`";
+elif [ -x /usr/bin/awk ]
+then
+    echo awk is `/usr/bin/awk --version | head -n1`
+else 
+    echo "awk not found" 
+fi
+
+# Checking gcc installation information
 
 gcc --version | head -n1
 g++ --version | head -n1
