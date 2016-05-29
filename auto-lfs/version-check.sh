@@ -3,30 +3,25 @@
 # This script begins my attempt to automate the Linux From Scratch installation.
 # While there is an Automated Linux From Scratch project, for educational purposes, I'm carrying out my own independent project.
 # Simple script to list version numbers of critical development tools
-export LC_ALL=C
-# Bash version check
-BASH_MINa=3
-#echo $BASH_MINa
-BASH_MINb=2
-#echo $BASH_MINb
-BASH_INSTa=$(bash --version | head -n1 | cut -d" " -f4-4 | cut -d"." -f1)
-#echo $BASH_INSTa
-BASH_INSTb=$(bash --version | head -n1 | cut -d" " -f4-4 | cut -d"." -f2)
-#echo $BASH_INSTb
 
-if [ "$BASH_INSTa" -gt "$BASH_MINa" ]
+export LC_ALL=C
+
+# Bash version check (3.2 minimum)
+BASH_INSTa=$(bash --version | head -n1 | cut -d" " -f4-4 | cut -d"." -f1)
+BASH_INSTb=$(bash --version | head -n1 | cut -d" " -f4-4 | cut -d"." -f2)
+if [ "$BASH_INSTa" -gt 3 ]
 then
     echo "Your bash version meets the minimum installation requirements"
-elif [ "$BASH_INSTa" -eq "$BASH_MINa" ] && [ "$BASH_INSTb" -ge "$BASH_MINb" ]
+elif [ "$BASH_INSTa" -eq 3 ] && [ "$BASH_INSTb" -ge 2 ]
 then
-    echo "Your bash version meets the minimum installation requirements"
-   
+    echo "Your bash version meets the minimum installation requirements"  
 else 
     echo "Your bash version does not meet the minimum installation requirements."
     echo "Installing latest version of bash."
     apt-get update && apt-get -y install bash  
 fi
 
+# Verifying that /bin/sh is a symlink to /bin/bash.
 MYSH=$(readlink -f /bin/sh)
 LFSSH=/bin/bash
 #echo "/bin/sh -> $MYSH"
@@ -40,51 +35,30 @@ else
     unset MYSH && unset LFSSH
 fi
 
-# Check binutils installation
-#MYBINUa=ld --version | head -n1 | cut -d" " -f7 | cut -d"." -f1
-MYBINUb=$(ld --version | head -n1 | cut -d" " -f7 | cut -d"." -f2)
-#LFSBINMINa=2
-LFSBINMINb=17
-#LFSBINMAXa=2
-LFSBINMAXb=26
-if [ "$MYBINUb" -ge "$LFSBINMINb" ] && [ "$MYBINUb" -le "$LFSBINMAXb" ]
-then
-    echo "Your binutils version meets requirements"
-else
-    LFSBINFLAG=y
-fi
-unset LFSBINMINb && unset LFSBINMAXb
-
-# Check bison installation
+# Check bison installation (2.3 minimum)
 MYBIS=$(whereis bison)
-BISMINa=2
-BISMINb=3
 if [ "$MYBIS" == "bison:" ]
 then 
     echo "Bison is not installed."
     apt-get update && apt-get -y install bison
     echo "Bison installed."
-fi
-
-unset BISMINa
-unset BISMINb
-
-# Checking if installed bison version meets requirements.
-MYBISa=$(bison --version | head -n1 | cut -d" " -f4 | cut -d"." -f1)
-MYBISb=$(bison --version | head -n1 | cut -d" " -f4 | cut -d"." -f2)
-if [ "$MYBISa" -gt "$BISMINa" ] 
-then 
-    echo "Your bison version meets requirements"
-elif [ "$MYBISa" -eq "$BISMINa" ] && [ "$MYBISb" -ge "$BISMINb" ]
+elif [ "$MYBIS" == "bison: /usr/bin/bison.yacc /usr/bin/bison /usr/bin/X11/bison.yacc /usr/bin/X11/bison /usr/share/bison /usr/share/man/man1/bison.1.gz" ]
 then
-    echo "Your bison version meets requirements"
-else
-    echo "Your bison version does not meet requirements."
-    echo "Installing bison . . . "
-    apt-get update && apt-get -y install bison
+    MYBISa=$(bison --version | head -n1 | cut -d" " -f4 | cut -d"." -f1)
+    MYBISb=$(bison --version | head -n1 | cut -d" " -f4 | cut -d"." -f2)
+    if [ "$MYBISa" -gt 2 ] 
+    then 
+        echo "Your bison version meets requirements"
+    elif [ "$MYBISa" -eq 2 ] && [ "$MYBISb" -ge 3 ]
+    then
+        echo "Your bison version meets requirements"
+    else
+        echo "Your bison version does not meet requirements."
+        echo "Installing bison . . . "
+        apt-get update && apt-get -y install bison
+    fi
 fi
 unset MYBISa && unset MYBISb
-
 
 # Checking YACC.
 # /usr/bin/yacc should be a link to bison or to a small script that executes bison
@@ -99,19 +73,33 @@ else
   echo "yacc not found" 
 fi
 
-# Checking bzip2 version.
+# Checking bzip2 version (1.0.4 minimum)
 #bzip2 --version 2>&1 < /dev/null | head -n1 | cut -d" " -f1,6-
-
-MYBZa=$(bzip2 --version 2>&1 < /dev/null | head -n1 | cut -d" " -f8 | cut -d"." -f1)
-MYBZb=$(bzip2 --version 2>&1 < /dev/null | head -n1 | cut -d" " -f8 | cut -d"." -f3 | cut -d"," -f1)
-LFSBZa=1
-LFSBZb=4
-if [ "$MYBZa" -eq "$LFSBZa" ] && [ "$MYBZb" -ge "$LFSBZb" ]
+MYBZ=$(whereis bzip2)
+if [ "$MYBZ" == "bzip2:" ]
 then
-   echo "Your bzip2 version meets requirements"
+    echo "Bzip2 is not installed"
+    echo "Installing bzip2 . . ."
+    apt-get update
+    apt-get install bzip2
+    echo "Bzip2 installed"
+elif [ "$MYBZ" == "bzip2: /bin/bzip2 /usr/share/man/man1/bzip2.1.gz" ]
+then
+    MYBZa=$(bzip2 --version 2>&1 < /dev/null | head -n1 | cut -d" " -f8 | cut -d"." -f1)
+    MYBZc=$(bzip2 --version 2>&1 < /dev/null | head -n1 | cut -d" " -f8 | cut -d"." -f3 | cut -d"," -f1)
+    if [ "$MYBZa" -eq 1 ] && [ "$MYBZc" -ge 4 ]
+    then
+        echo "Your bzip2 version meets requirements"
+    else
+        echo "Bzip2 does not meet requirements"
+        echo "Installing bzip2 . . ."
+        apt-get update
+        apt-get install bzip2
+        echo "Bzip2 installed"
+    fi
 fi
 
-#Checking coreutils
+#Checking coreutils 
 MYCOREa=$(chown --version | head -n1 | cut -d")" -f2 | cut -d" " -f2 | cut -d"." -f1)
 MYCOREb=$(chown --version | head -n1 | cut -d")" -f2 | cut -d" " -f2 | cut -d"." -f2)
 LFSCOREa=6
