@@ -99,9 +99,17 @@ fi
 #bzip2 --version 2>&1 < /dev/null | head -n1 | cut -d" " -f1,6-
 
 MYBZa=$(bzip2 --version 2>&1 < /dev/null | head -n1 | cut -d" " -f8 | cut -d"." -f1)
-MYBZb=$(
+MYBZb=$(bzip2 --version 2>&1 < /dev/null | head -n1 | cut -d" " -f8 | cut -d"." -f3 | cut -d"," -f1)
+LFSBZa=1
+LFSBZb=4
+if [ "$MYBZa" -eq "$LFSBZa" ] && [ "$MYBZb" -ge "$LFSBZb" ]
+then
+   echo "Your bzip2 version meets requirements"
 
-echo -n "Coreutils: "; chown --version | head -n1 | cut -d")" -f2
+#Checking coreutils
+MYCOREa=$(chown --version | head -n1 | cut -d")" -f2 | cut -d" " -f2 | cut -d"." -f1)
+MYCOREb=$(chown --version | head -n1 | cut -d")" -f2 | cut -d" " -f2 | cut -d"." -f2)
+#echo -n "Coreutils: "; chown --version | head -n1 | cut -d")" -f2
 diff --version | head -n1
 find --version | head -n1
 gawk --version | head -n1
