@@ -1,5 +1,15 @@
 How To:
 
+# List users in sudo group
+awk -F ":" '{ system("groups " $1 " | grep -P \"[[:space:]]sudo([[:space:]]|$)\"") }' /etc/passwd
+
+# or . . .
+
+grep -Po '^sudo.+:\K.*$' /etc/group
+
+# Save strace execution to a file (e.g., 'ls' command):
+strace -o output.txt ls
+
 # Allow X11 port forwarding on Jaguar:
 #Appended to /etc/bash.bashrc file:
 
@@ -92,6 +102,9 @@ sudo update-alternatives --config nc
 
 qemu-img convert ubuntu-biz1404-disk1.vmdk ubuntubiz14.04.bin
 VBoxManage convertdd ubuntubiz14.04.bin ubuntu-biz14.04.vdi
+
+# compress and tar a directory
+tar -czvf <name of tar.gz file> <directory to compress and tar>
 
 #untar and zip to a specified directory:
 
@@ -206,6 +219,9 @@ XDG_DOCUMENTS_DIR="$HOME/Documents"
 XDG_MUSIC_DIR="$HOME/"
 XDG_PICTURES_DIR="$HOME/"
 XDG_VIDEOS_DIR="$HOME/"
+
+#Run:
+nautilus -q
 
 # Mount iso in FreeBSD 9.3:
 
