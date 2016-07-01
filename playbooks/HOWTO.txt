@@ -1,5 +1,11 @@
 How To:
 
+# Ubuntu: If packages fail to download, if "NO_PUBKEY 40976EAF437D05B5 . . ."
+
+
+
+
+
 # List users in sudo group
 awk -F ":" '{ system("groups " $1 " | grep -P \"[[:space:]]sudo([[:space:]]|$)\"") }' /etc/passwd
 
