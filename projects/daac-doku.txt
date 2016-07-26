@@ -1,0 +1,51 @@
+1. centos7 minimal
+2. yum -y install net-tools
+3. yum -y update
+4. vi /etc/hostname --> daac-test
+5. yum -y install links
+6. links
+	https://www.dokuwiki.org/install
+        installation guide
+	Download page
+	Stable version
+	untoggled all languages except english
+	upgrade plugin
+	start download
+	save as tgz.
+7. yum -y install httpd
+8. systemctl enable httpd.service
+9. gpasswd -a b1n wheel
+10. logout
+11. login as b1n
+12. sudo mkdir -p /var/www/doku-daac/public_html
+13. sudo chown -R b1n:b1n /var/www/doku-daac/public_html
+14.  sudo mkdir -p /var/www/doku-daac2/public_html
+15. sudo chown -R b1n:b1n /var/www/doku-daac2/public_html
+16. sudo chmod -R 755 /var/www
+17. sudo mkdir /etc/httpd/sites-available
+18. sudo mkdir /etc/httpd/sites-enabled
+19. vi /etc/httpd/conf/httpd.conf
+20. # append the following line to httpd.conf
+21. IncludeOptional sites-enabled/*.conf
+22. # Create and edit doku-daac.conf file /etc/httpd/sites-availabe
+23. vi /etc/httpd/sites-available/doku-daac.local.conf 
+
+<VirtualHost *:80>
+    ServerName www.doku-daac.local
+    ServerAlias doku-daac.local
+    DocumentRoot /var/www/doku-daac.local/public_html
+    ErrorLog /var/www/doku-daac.local/error.log
+    CustomLog /var/www/doku-daac.local/requests.log combined
+</VirtualHost>
+
+24. vi /etc/httpd/sites-available/doku-daac2.local.conf
+<VirtualHost *:80>
+    ServerName www.doku-daac2.local
+    ServerAlias doku-daac2.local
+    DocumentRoot /var/www/doku-daac2.local/public_html
+    ErrorLog /var/www/doku-daac2.local/error.log
+    CustomLog /var/www/doku-daac2.local/requests.log combined
+</VirtualHost>
+
+25. sudo ln -s /etc/httpd/sites-available/doku-daac.local.conf /etc/httpd/sites-enabled/doku-daac.local.conf
+26. sudo ln -s /etc/httpd/sites-available/doku-daac.local.conf /etc/httpd/sites-enabled/doku-daac.local.conf
