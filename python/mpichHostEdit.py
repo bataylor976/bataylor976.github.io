@@ -69,7 +69,7 @@ def fileReplace():
         print('Replacing local hosts file on %s with cluster hosts file . . .' % (ip))
         remote_conn.send('sudo -i\n')
         time.sleep(2)
-        remote_conn.send('admin6012\n')
+        remote_conn.send('xxxxxx\n')
         time.sleep(2)
         remote_conn.send('rm /etc/hosts\n')
         time.sleep(2)
