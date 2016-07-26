@@ -1,10 +1,19 @@
 How To:
 
+# Turn on/off firewalld in RHEL 7:
+service firewalld stop
+service firewalld start
+
+# Disable firewalld
+systemctl disable firewalld
+
 # Ubuntu: If packages fail to download, if "NO_PUBKEY 40976EAF437D05B5 . . ."
 
+# tomcat commands
+ps -ef | grep tomcat
 
-
-
+# ssh logging to text file.
+ssh -vvv -l b1n  jaguar  2>&1  | tee ~/ssh-output.log
 
 # List users in sudo group
 awk -F ":" '{ system("groups " $1 " | grep -P \"[[:space:]]sudo([[:space:]]|$)\"") }' /etc/passwd
@@ -255,6 +264,9 @@ sudo apt-get install python-paramiko
 install pyro4
 pip install pyro4
 sudo pip install pyro4
+
+# grep recursively through files in a directory in search of a string (ignore case):
+grep -r -i "mysql" /etc/nagios/objects/
 
 # grep above and below a line
 
@@ -546,7 +558,7 @@ dmesg | grep "Ethernet driver"
 
 sudo lshw | less
 
-Return to previous working directory
+# Return to previous working directory
 
 cd -
 
