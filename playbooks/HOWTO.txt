@@ -1,5 +1,11 @@
 How To:
 
+# Open vi and go to function localList:
+vi +/localList tryit.py
+
+# Open vi at line number:
+vi +54 tryit.py
+
 # Turn on/off firewalld in RHEL 7:
 service firewalld stop
 service firewalld start
