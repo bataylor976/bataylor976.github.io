@@ -1,5 +1,11 @@
 How To:
 
+# Create a git branch
+git branch <name of branch>
+
+# Switch to the newly created git branch:
+git checkout <branch name>
+
 # Open vi and go to function localList:
 vi +/localList tryit.py
 
