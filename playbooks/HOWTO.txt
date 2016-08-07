@@ -1,5 +1,9 @@
 How To:
 
+#Compile a program using gcc:
+
+gcc -o <output-filname> <input-file>
+
 # Firefox socks proxy
 # Linkhttps://www.digitalocean.com/community/tutorials/how-to-route-web-traffic-securely-without-a-vpn-using-a-socks-tunnel
 ssh -D 8123 -f -C -q -N pupi@schnecke4  # pupi@schnecke4 is the remote host. Follow directions in link above for Firefox settings.
