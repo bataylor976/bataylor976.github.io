@@ -1,5 +1,9 @@
 How To:
 
+# Xforward from ubuntu to mac:
+#(installed XQuartz)
+ssh b1n@160.91.90.117 -f -X firefox
+
 #Compile a program using gcc:
 
 gcc -o <output-filname> <input-file>
