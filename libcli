@@ -1,0 +1,85 @@
+#!/bin/bash
+#Bash-to-slash commandline interface function library 
+
+#List the designated directories.
+listdirs() {
+  correctdirs=("$HOME/Desktop/test1" "$HOME/Desktop/testdir/test1" '/path/to/file3' '/path/to/file4'\
+  '/path/to/file5' '/path/to/file6' '/path/to/file7' '/path/to/file8'\
+  '/path/to/file9' '/path/to/file10' '/path/to/file11' '/path/to/file12' )
+  for i in "${correctdirs[@]}"; do
+    printf "%s\n" $i
+  done
+}
+
+# Stores player's selected hidingplace.
+selectpiece() {
+  hidingplace=$1
+  placepiece
+}
+
+# Places player's selection.
+placepiece() {
+  selectioncorrect
+  alreadyselected
+  if [[ $correct = y ]] && [[ $selected = n ]]; then
+    printf "Placing piece: %s.\n" $hidingplace
+    printf "" > "${hidingplace}"
+    addselect
+    clearvars
+  elif [[ $correct = n ]]; then
+    printf "Invalid location or filname: %s\nPlease select another.\n" $hidingplace
+  else
+    printf "Location already selected: %s\nPlease select another.\n" "$hidingplace"
+  fi
+}
+
+# Adds player's selection to the selectedpieces array.
+addselect() {
+  selectedpieces+=("$hidingplace")
+}
+
+# Lists player's pieces that are aleady selected.
+listselect() {
+  for i in "${selectedpieces[@]}"; do
+    printf "%s\n" $i
+  done
+}
+
+# Generic test function to be called when needed in more specific testing functions.
+isin() {
+  local pattern="$1" element
+  shift
+  
+  for element
+  do
+    [[ $element = $pattern ]] && return 0
+  done
+
+  return 1
+}
+
+# Specific test function for testing correct filename and location.
+selectioncorrect() {
+  if isin "$hidingplace" "${correctdirs[@]}"; then
+    correct=y
+  else
+    correct=n
+  fi
+}
+
+# Specific test function for testing if location is already selected.
+alreadyselected() {
+  if isin "$hidingplace" "${selectedpieces[@]}"; then
+    selected=y
+    #printf "Location already selected: %s.\nPleases select another.\n" "$hidingplace"
+  else
+    selected=n
+  fi
+}
+
+# For running once pieces are correctly selected and placed (just in case).
+clearvars() {
+  unset hidingplace
+  unset correct
+  unset selected
+}
