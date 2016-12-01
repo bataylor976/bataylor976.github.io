@@ -1,22 +1,10 @@
 How To:
+# pass a file through perl & find and replace text. g = global 
+# thoughout file & i = case insensitive.
+perl -p -e 's/\b<search-text>\b/<replace-text>/gi' file.txt
 
-# Xforward from ubuntu to mac:
-#(installed XQuartz)
-ssh b1n@160.91.90.117 -f -X firefox
-
-#Compile a program using gcc:
-
-gcc -o <output-filname> <input-file>
-
-# Firefox socks proxy
-# Linkhttps://www.digitalocean.com/community/tutorials/how-to-route-web-traffic-securely-without-a-vpn-using-a-socks-tunnel
-ssh -D 8123 -f -C -q -N pupi@schnecke4  # pupi@schnecke4 is the remote host. Follow directions in link above for Firefox settings.
-
-# Create a git branch
-git branch <name of branch>
-
-# Switch to the newly created git branch:
-git checkout <branch name>
+# for-each-file-in-this-dir example that avoids using "ls".
+for i in *; do var=$(printf "%s/%s\n" $PWD $i); ln -s "$var" /etc/httpd/modules/"$i"; done
 
 # Open vi and go to function localList:
 vi +/localList tryit.py
