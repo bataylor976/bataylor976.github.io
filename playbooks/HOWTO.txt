@@ -1,4 +1,8 @@
 How To:
+
+# yum check to see if package is installed
+yum list installed <package-name>
+
 # pass a file through perl & find and replace text. g = global 
 # thoughout file & i = case insensitive.
 perl -p -e 's/\b<search-text>\b/<replace-text>/gi' file.txt
