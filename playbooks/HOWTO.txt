@@ -1,5 +1,9 @@
 How To:
 
+# Replace a string in a file using the ex utility
+
+ex -sc '%s/olddomain\.com/newdomain.com/g|x' file
+
 # yum check to see if package is installed
 yum list installed <package-name>
 
