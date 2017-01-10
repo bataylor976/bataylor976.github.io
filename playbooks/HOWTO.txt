@@ -1,5 +1,10 @@
 How To:
 
+# Resolve symlinks in batches (e.g., show me symlinks in /bin):
+
+find /bin/ -type l -printf '%p points to %l\n'
+
+
 # To return motherboard information:
 dmidecode | grep -A4 'Base Board'
 Base Board Information
