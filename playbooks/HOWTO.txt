@@ -1,5 +1,9 @@
 How To:
 
+# Gitlab version information
+
+gitlab-rake gitlab:env:info
+
 # Resolve symlinks in batches (e.g., show me symlinks in /bin):
 
 find /bin/ -type l -printf '%p points to %l\n'
