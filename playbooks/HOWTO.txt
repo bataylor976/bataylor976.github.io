@@ -1,5 +1,16 @@
 How To:
 
+# Extract rpm without installing
+rpm2cpio php-5.1.4-1.esp1.x86_64.rpm | cpio -idmv
+
+# scp to nat'd virtualbox guest:
+scp -P 2222 /home/b1n/Downloads/Dockerized-app-Flask.zip b1n@127.0.0.1:~
+
+#kvm virsh snapshots
+
+virsh snapshot-create-as --domain {VM-NAME} --name "{SNAPSHOT-NAME}"
+virsh snapshot-list --domain {VM-NAME}
+
 #firewalld commands:
 
 firewall-cmd --state
@@ -11,6 +22,14 @@ firewall-cmd --get-active-zones
 firewall-cmd --list-all
 
 firewall-cmd --zone=home --list-all
+
+[root@gitlab1nci ~]# firewall-cmd --zone=public --permanent --add-service=http
+success
+[root@gitlab1nci ~]# firewall-cmd --zone=public --permanent --add-service=https
+success
+[root@gitlab1nci ~]# firewall-cmd --reload
+success
+
 
 # Gitlab version information
 
