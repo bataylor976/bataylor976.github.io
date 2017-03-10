@@ -1,5 +1,8 @@
 How To:
 
+# yum update, but exclude package
+yum update --exclude=<packagename>
+
 # Extract rpm without installing
 rpm2cpio php-5.1.4-1.esp1.x86_64.rpm | cpio -idmv
 
@@ -20,6 +23,8 @@ firewall-cmd --get-default-zone
 firewall-cmd --get-active-zones
 
 firewall-cmd --list-all
+
+firewall-cmd --get-services
 
 firewall-cmd --zone=home --list-all
 
