@@ -1,5 +1,8 @@
 How To:
 
+# Send an external "quit" command to a running screen session:
+screen -S foo -X quit
+
 # yum update, but exclude package
 yum update --exclude=<packagename>
 
