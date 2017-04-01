@@ -1,5 +1,38 @@
 How To:
 
+# To stash untracked files in git
+git stash -u <filename> 
+
+# To add a save message to the stash. 
+git stash save "enter message"
+
+# To remove a stash from the stash list
+git stash drop
+
+# To list currently stashed files
+git stash list
+
+# Show the changes recorded in the stash as a diff between the stashed state
+# and its original parent. 
+git stash show stash@{<stash-revision-index>}
+
+# Apply changes in stashed copy of file to file in working directory.
+git stash apply stash@{1}
+
+#Remove all the stashed states. Note that those states will then be 
+# subject to pruning, and may be impossible to recover  
+git stash clear
+
+# Creates and checks out a new branch named <branchname> starting from the commi# t at which the <stash> was originally created, applies the changes recorded in
+# <stash> to the new working tree and index. If that succeeds, and <stash> is a 
+# reference of the form stash@{<revision>}, it then drops the <stash>. 
+# When no <stash> is given, applies the latest one. 
+git stash branch <branchname> [<stash>]
+
+# Remove a single stashed state from the stash list and apply it on top of the 
+# current working tree state, i.e., do the inverse operation of git stash save. # The working directory must match the index.
+git stash pop
+
 # Send an external "quit" command to a running screen session:
 screen -S foo -X quit
 
@@ -574,6 +607,9 @@ sudo pip3 install <module-name>
 
 #install pip for python3:
 sudo apt-get install python3-pip
+
+#install pip for python2.7:
+sudo apt-get install python-pip
 
 #Install selenium under python3:
 sudo pip3 install -U selenium 
