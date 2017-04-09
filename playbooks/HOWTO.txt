@@ -1,5 +1,12 @@
 How To:
 
+# Set up a simple git server on local machine
+git config --global alias.serve "daemon --verbose --export-all --base-path=.git --reuseaddr --strict-paths .git/"
+
+git serve
+
+git clone <username>@address:/path/to/repo
+
 # To stash untracked files in git
 git stash -u <filename> 
 
