@@ -1,5 +1,11 @@
 How To:
 
+virsh setvcpus lcatweb 10 --maximum --config
+virsh shutdown lcatweb
+virsh list --all
+virsh start lcatweb
+virsh setvcpus lcatweb 10 --live
+
 # Set up a simple git server on local machine
 git config --global alias.serve "daemon --verbose --export-all --base-path=.git --reuseaddr --strict-paths .git/"
 
