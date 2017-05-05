@@ -6,6 +6,10 @@ virsh list --all
 virsh start lcatweb
 virsh setvcpus lcatweb 10 --live
 
+virsh destroy lcatweb
+virsh setvcpus lcatweb 1 --maximum --config
+virsh start lcatweb
+
 # Set up a simple git server on local machine
 git config --global alias.serve "daemon --verbose --export-all --base-path=.git --reuseaddr --strict-paths .git/"
 
@@ -164,6 +168,9 @@ AddressFamily inet
 # Remove all instances of a word in a file w/ sed.
 word='the'
 sed -r "s/\b$word\b//g"
+
+# Replace instances of 'word' with 'apple':
+sed -r "s/word/apple/g"
 
 # Change SELinux permissions with sed.
 sed -i 's/^SELINUX=permissive/' /etc/selinux/config
