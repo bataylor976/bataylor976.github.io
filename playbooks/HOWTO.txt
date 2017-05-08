@@ -1,5 +1,9 @@
 How To:
 
+# Nagios test config before restarting service:
+/usr/sbin/nagios -v /etc/nagios/nagios.cfg
+
+# Virsh cpu commands:
 virsh setvcpus lcatweb 10 --maximum --config
 virsh shutdown lcatweb
 virsh list --all
