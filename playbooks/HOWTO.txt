@@ -1,5 +1,8 @@
 How To:
 
+# Check postfix mail queue count:
+mailq | grep -c "^[A-F0-9]"
+
 # Nagios test config before restarting service:
 /usr/sbin/nagios -v /etc/nagios/nagios.cfg
 
@@ -87,6 +90,9 @@ firewall-cmd --list-all
 firewall-cmd --get-services
 
 firewall-cmd --zone=home --list-all
+
+# firewall-cmd rich rule example:
+firewall-cmd --zone=public --permanent --add-rich-rule='rule family="ipv4" source address="160.91.19.12" port port="5666" protocol="tcp" accept'
 
 [root@gitlab1nci ~]# firewall-cmd --zone=public --permanent --add-service=http
 success
