@@ -1,5 +1,23 @@
 How To:
 
+# Python virtual environments:
+pip install virtualenv
+virtualenv --version #just to verify installed.
+# create directory for virtual environment.
+# In this case, I created one for testing development version
+# of python-gitlab, a program that interacts with GitLab API.
+mkdir pgvenv
+cd pgvenv
+virtualenv pgvenv
+source pgvenv/bin/activate
+
+# prompt should look something like this:
+(pgvenv) $
+
+# install necessary python packages, etc.
+# when finished, type:
+deactivate
+
 # Check postfix mail queue count:
 mailq | grep -c "^[A-F0-9]"
 
