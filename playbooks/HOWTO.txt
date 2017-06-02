@@ -1,5 +1,36 @@
 How To:
 
+# Connect to mysql:
+mysql -u <user> -p
+# will prompt for password.
+
+# display available databases:
+SHOW DATABASES;
+
+# create a database:
+CREATE DATABASE <database name>;
+
+# Remove a database:
+DROP DATABASE <database name>;
+
+# Open a database:
+USE <database name>;
+
+# Display database tables of opened database:
+SHOW tables;
+
+# Table creation example:
+CREATE TABLE Persons (
+    PersonID int,
+    LastName varchar(255),
+    FirstName varchar(255),
+    Address varchar(255),
+    City varchar(255)
+);
+
+# Privilege granting example:
+GRANT ALL PRIVILEGES ON `<database name>`.* TO '<mysql username>'@'%' IDENTIFIED BY '<password>';
+
 # Python virtual environments:
 pip install virtualenv
 virtualenv --version #just to verify installed.
