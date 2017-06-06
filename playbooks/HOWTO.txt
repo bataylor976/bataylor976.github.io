@@ -1,5 +1,33 @@
 How To:
 
+# Assign lvm label to parted partition:
+(parted) set <partition #> lvm on
+
+# align partitions using parted
+# e.g.:
+
+Get the alignment parameters for your array (remember to replace sdb with the name of your device as seen by the kernel).
+
+# cat /sys/block/sdb/queue/optimal_io_size
+1048576
+# cat /sys/block/sdb/queue/minimum_io_size
+262144
+# cat /sys/block/sdb/alignment_offset
+0
+# cat /sys/block/sdb/queue/physical_block_size
+512
+
+Add optimal_io_size to alignment_offset and divide the result by physical_block_size. In my case this was (1048576 + 0) / 512 = 2048.
+This number is the sector at which the partition should start. Your new parted command should look like
+
+mkpart primary 2048s 100%
+
+The trailing ‘s’ is important: it tells parted that you’re talking about sectors, not bytes or megabytes.
+If all went well, the partition will have been created with no warnings. You can check the alignment thusly (replacing ‘1’ with the partition number if necessary):
+
+(parted) align-check optimal 1                                            
+1 aligned
+
 # Connect to mysql:
 mysql -u <user> -p
 # will prompt for password.
