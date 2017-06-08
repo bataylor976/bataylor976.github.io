@@ -1,5 +1,17 @@
 How To:
 
+# Change log (maybe good to know?):
+nfs-utils-lib was rolled into nfs-utils as of RHEL 7.2, CentOS 7 now has made the upstream change as well. `
+
+# Change hostname:
+hostnamectl set-hostname "Your New Host Name Here" --pretty
+hostnamectl set-hostname Your-New-Host-Name-Here --static
+hostnamectl set-hostname Your-New-Host-Name-Here --transient
+
+# Check hostname status
+hostnamectl status
+
+
 # Assign lvm label to parted partition:
 (parted) set <partition #> lvm on
 
@@ -82,6 +94,9 @@ mailq | grep -c "^[A-F0-9]"
 
 # Nagios test config before restarting service:
 /usr/sbin/nagios -v /etc/nagios/nagios.cfg
+
+# Run nagios check_disk command on remote machine:
+ssh <user>@<ip> /usr/lib64/nagios/plugins/check_disk -w 2% -c 1% -p "/path/to/storage" 2>&1
 
 # Virsh cpu commands:
 virsh setvcpus lcatweb 10 --maximum --config
