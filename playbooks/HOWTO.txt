@@ -1,5 +1,8 @@
 How To:
 
+# rsync, recursively, preserving permissions:
+rsync -avP /path/to/dir/ <username>@system@ip_or_fqdn:/path/to/dir
+
 # Change log (maybe good to know?):
 nfs-utils-lib was rolled into nfs-utils as of RHEL 7.2, CentOS 7 now has made the upstream change as well. `
 
@@ -39,6 +42,14 @@ If all went well, the partition will have been created with no warnings. You can
 
 (parted) align-check optimal 1                                            
 1 aligned
+
+# Helpful mysql commands:
+
+# List of mysql users:
+MariaDB [(none)]> select user,host from mysql.user;
+
+# show permissions for a single user:
+MariaDB [(none)]> show grants for 'username'@'%';
 
 # Connect to mysql:
 mysql -u <user> -p
