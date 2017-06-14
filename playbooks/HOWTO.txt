@@ -1,5 +1,12 @@
 How To:
 
+# Install clamav
+sudo apt install clamav
+
+# To update signatures:
+sudo /etc/init.d/clamav-freshclam stop
+sudo freshclam -v
+
 # rsync, recursively, preserving permissions:
 rsync -avP /path/to/dir/ <username>@system@ip_or_fqdn:/path/to/dir
 
@@ -102,6 +109,12 @@ deactivate
 
 # Check postfix mail queue count:
 mailq | grep -c "^[A-F0-9]"
+
+# Nagios open firewall port:
+firewall-cmd --zone=public --add-port=5666/tcp --permanent
+
+# Nagios check command remotely from nagios server:
+/usr/lib64/nagios/plugins/check_nrpe -H esd-vm1.ornl.gov -c check_esd_vmstorage
 
 # Nagios test config before restarting service:
 /usr/sbin/nagios -v /etc/nagios/nagios.cfg
