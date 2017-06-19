@@ -687,7 +687,13 @@ giving only the "eth0" IP address and not any sub-interfaces (eth0:0, eth0:1, et
 ip="$(ifconfig | grep -v 'eth0:' | grep -A 1 'eth0' | tail -1 | cut -d ':' -f 2 | cut -d ' ' -f 1)"
 
 
-'du' - Finding the size of a directory
+#'du' - Finding the size of a directory
+
+# Top five directories by disk usage (human readable)
+du -hs * | sort -rh | head -5
+
+# Display the largest folders/files including the sub-directories:
+du -Sh | sort -rh | head -5
 
 $ du
 Typing the above at the prompt gives you a list of directories that exist in the current directory along with their sizes. The last line of the output gives you the total size of the current directory including its subdirectories. The size given includes the sizes of the files and the directories that exist in the current directory as well as all of its subdirectories. Note that by default the sizes given are in kilobytes.
