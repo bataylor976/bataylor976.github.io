@@ -1,5 +1,11 @@
 How To:
 
+# Completely uninstall omnibus Gitlab (RHEL/CentOS 7):
+gitlab-ctl uninstall
+gitlab-ctl cleanse
+gitlab-ctl remove-accounts
+yum remove gitlab-ee
+
 # psql command-line for postgresql:
 # psql may not be in $PATH, but often installed in /opt
 # also, following command often helps:
@@ -938,6 +944,16 @@ find / -type f -name "*.conf"
 
 #awk: return row 2, 7th column 
 awk 'NR==2 {print $7}' free.txt
+
+# Single-user mode RHEL 7:
+# Hit 'e' at grub menu.
+# Look for line that begins with 'linux16 vmlinuz.'
+# Go to end of that line, and type the following:
+init=/bin/bash
+
+# Hit Ctrl-x
+# At bash prompt, type:
+mount -o remount,rw /
 
 
 
