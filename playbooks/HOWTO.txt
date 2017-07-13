@@ -427,6 +427,9 @@ sudo update-alternatives --config nc
 qemu-img convert ubuntu-biz1404-disk1.vmdk ubuntubiz14.04.bin
 VBoxManage convertdd ubuntubiz14.04.bin ubuntu-biz14.04.vdi
 
+# create qcow2 disk w/ qemu-img create:
+qemu-img create -f qcow2 <disk-name>.qcow2 50G
+
 # compress and tar a directory
 tar -czvf <name of tar.gz file> <directory to compress and tar>
 
@@ -937,6 +940,9 @@ sudo restart lightdm
 # find command
 find / -type f -name "*.conf"
 
+# find command partial name, case insensitive example:
+find ../ -name '*[Cc][Ll][Aa][Mm][Aa][Vv]*'  -print
+
 # Use "tee" to redirect to a file and the screen. Depending on the shell you 
 # use, you first have to redirect stderr to stdout using
 
@@ -955,6 +961,15 @@ init=/bin/bash
 # At bash prompt, type:
 mount -o remount,rw /
 
+# Clamav
+# install clamav
+sudo apt-get install clamav clamav-daemon
+
+# stop freshclam
+systemctl stop clamav-freshclam.service
+
+# clamscan (recursive, verbose):
+clamscan -rv /path/to/scan
 
 
 
