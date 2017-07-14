@@ -1,5 +1,18 @@
 How To:
 
+#openssl csr
+# new csr
+openssl req \
+       -newkey rsa:2048 -nodes -keyout <fqdn>.key \
+       -out <fqdn>.csr
+
+
+# From existing csr
+openssl x509 \
+       -in /path/to/existing/<fqdn>.crt \
+       -signkey /path/to/existing/<fqdn>.key \
+       -x509toreq -out <fqdn>.csr
+
 # Completely uninstall omnibus Gitlab (RHEL/CentOS 7):
 gitlab-ctl uninstall
 gitlab-ctl cleanse
