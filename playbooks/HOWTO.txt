@@ -43,6 +43,9 @@ ps aux | grep postgres
     set role __test__;: Change role for current session to __test__.
     grant __test2__ to __test1__;: Allow __test1__ to set its role as __test2__
 
+# postgressql dump database cluster
+./pg_dumpall --username=postgres --file=<output.filename>
+
 # Add user to postgresql:
 # change to user postgres
 [root@some-machine]# su - postgres
@@ -116,6 +119,7 @@ If all went well, the partition will have been created with no warnings. You can
 1 aligned
 
 # Helpful mysql commands:
+mysqldump -u root -p --opt [database name] > [database name].sql
 
 # List of mysql users:
 MariaDB [(none)]> select user,host from mysql.user;
@@ -984,7 +988,11 @@ systemctl stop clamav-freshclam.service
 # clamscan (recursive, verbose):
 clamscan -rv /path/to/scan
 
+# cryptsetup luksDump: dump luks slots for encrypted partition
+sudo cryptsetup luksDump /dev/sda5 | grep Slot
 
+# cryptsetup luksAddKey:
+sudo cryptsetup luksAddKey /dev/sda5
 
 
 
