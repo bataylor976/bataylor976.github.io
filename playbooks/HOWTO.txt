@@ -119,7 +119,11 @@ If all went well, the partition will have been created with no warnings. You can
 1 aligned
 
 # Helpful mysql commands:
+# mysql dump database:
 mysqldump -u root -p --opt [database name] > [database name].sql
+
+# mysql import dumped database:
+mysql -u root -p newdatabase < /path/to/newdatabase.sql
 
 # List of mysql users:
 MariaDB [(none)]> select user,host from mysql.user;
