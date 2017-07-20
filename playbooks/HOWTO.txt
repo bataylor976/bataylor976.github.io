@@ -119,6 +119,10 @@ If all went well, the partition will have been created with no warnings. You can
 1 aligned
 
 # Helpful mysql commands:
+
+# mysql change user's password:
+SET PASSWORD FOR ‘anthony’@’localhost’ = PASSWORD(‘text password’);
+
 # mysql dump database:
 mysqldump -u root -p --opt [database name] > [database name].sql
 
