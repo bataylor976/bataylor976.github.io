@@ -1002,5 +1002,9 @@ sudo cryptsetup luksDump /dev/sda5 | grep Slot
 # cryptsetup luksAddKey:
 sudo cryptsetup luksAddKey /dev/sda5
 
+# chown a symlink
+chown -h apache:apache clamav-cvd
 
+# Create a symlink:
+ln -s /path/to/file /path/to/symlink
 
