@@ -265,6 +265,10 @@ screen -rd <existing-session>
 # yum update, but exclude package
 yum update --exclude=<packagename>
 
+# rpm command: remove package
+rpm -qa | grep -i <partial package name>
+rpm -ev <full-package-name>
+
 # Extract rpm without installing
 rpm2cpio php-5.1.4-1.esp1.x86_64.rpm | cpio -idmv
 
