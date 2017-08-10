@@ -1,0 +1,117 @@
+#!/bin/bash
+
+# For updating signatures on an offline device. Downloads updated clamav signature CVD databases
+# and replaces existing ones.
+
+clamavdir="/repo/clamav-cvd"
+clamavdir_bu="/home/repoman/clamav_bu"
+adminmail='email@email.com'
+tmpout="$clamavdir"/clamav-email.txt
+
+clambu() {
+  if [[ -e "$clamavdir"/"*.cvd" ]]; then 
+    mv "$clamavdir"/main.cvd "$clamavdir_bu"/main.cvd
+    mv "$clamavdir"/daily.cvd "$clamavdir_bu"/daily.cvd
+    mv "$clamavdir"/bytecode.cvd "$clamavdir_bu"/bytecode.cvd
+  fi
+}
+  
+makeclamdirs() {
+  if [[ ! -d "$clamavdir" ]]; then
+    mkdir "$clamavdir"
+  fi
+
+  if [[ ! -d "$clamavdir_bu" ]]; then
+    mkdir "$clamavdir_bu"
+  fi
+}
+
+mainget() {
+  local count=0
+  while true; do
+    wget -O "$clamavdir"/main.cvd http://database.clamav.net/main.cvd
+    clamain=$(echo $?)
+    ((count++))
+    if [[ "$clamain" -eq 0 ]]; then
+      break
+    elif [[ "$count" -eq 5 ]]; then
+       failmail main.cvd
+       restoreclam main.cvd
+       break
+    else
+      sleep 2
+      continue
+    fi
+  done
+}
+
+dailyget() {
+  local count=0
+  while true; do
+    wget -O "$clamavdir"/daily.cvd http://database.clamav.net/daily.cvd
+    clamdaily=$(echo $?)
+    ((count++))
+    if [[ "$clamdaily" -eq 0 ]]; then
+      break
+    elif [[ "$count" -eq 5 ]]; then
+       failmail daily.cvd
+       restoreclam daily.cvd
+       break
+    else
+      sleep 2
+      continue
+    fi
+  done
+}
+
+byteget() {
+  local count=0
+  while true; do
+    wget -O "$clamavdir"/bytecode.cvd http://database.clamav.net/bytecode.cvd
+    clambyte=$(echo $?)
+    ((count++))
+    if [[ "$clambyte" -eq 0 ]]; then
+      break
+    elif [[ "$count" -eq 5 ]]; then
+       failmail bytecode.cvd
+       restoreclam bytecode.cvd
+       break
+    else
+      sleep 2
+      continue
+    fi
+  done
+}
+
+failmail() {
+  printf "$1 failed to download" > "$tmpout"
+  mail -s "Clamav: failed download" "$adminmail" < "$tmpout"
+  rm "$tmpout"
+}
+
+successmail() {
+  printf "All Clamav CVD databases updated successfully" > "$tmpout"
+  mail -s "Clamav CVD Update" "$adminmail" < "$tmpout"
+  rm "$tmpout"
+}
+
+gotclams() {
+  if [[ "$clamain" -eq 0 ]] && [[ "$clamdaily" -eq 0 ]] && [[ "$clambyte" -eq 0 ]]; then
+    successmail
+  fi
+}
+
+restoreclam() {
+    cp "$clamavdir_bu"/"$1" "$clamavdir"/"$1"
+}
+
+main() {
+  makeclamdirs
+  clambu
+  mainget
+  dailyget
+  byteget
+  gotclams
+}
+
+main
