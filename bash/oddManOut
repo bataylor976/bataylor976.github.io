@@ -1,0 +1,23 @@
+#!/bin/bash
+
+#For finding a bad hard drive in a large array, and bad drive has already been offlined and can't be directly blinked.
+
+serial () {
+  while IFS=: read -r serial serialnum; do
+   var=$(printf "%s\n" "$serialnum")
+   #printf "%s\n" "$var"
+   printf "%s\n" "${var##* }"
+  #done < serial2.txt
+  done < <(sas2ircu 0 display | grep Serial | grep -v 'Channel')
+}
+
+while IFS= read -r line; do
+  enc=$(sas2ircu 0 display | grep -B8 "$line" | grep Enclosure)
+  enc2=$(printf "%s\n" "${enc##* }")
+  #printf '%s\n' "$enc2"
+  slo=$(sas2ircu 0 display | grep -B7 "$line" | grep Slot)
+  slo2=$(printf "%s\n" "${slo##* }")
+  #printf '%s\n' "$slo2"
+  #sas2ircu 0 locate "$enc2":"$slo2" OFF
+  sas2ircu 0 locate "$enc2":"$slo2" $1
+done < <(serial)
