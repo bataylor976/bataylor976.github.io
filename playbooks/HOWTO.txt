@@ -1,6 +1,32 @@
 How To:
 
-#openssl csr
+# systemd runlevel commands:
+# display default runlevel (or default target; for my purposes, the terms will
+# be interchangeable):
+systemctl get-default
+
+# List all currently loaded runlevel target units.
+systemctl list-units --type target
+
+# List all loaded runlevel units regardless of state:
+systemctl list-units --type target --all
+
+# set default runlevel target
+systemctl set-default name.target
+
+# set default runlevel target to multi-user (i.e., non-graphical):
+systemctl set-default multi-user.target
+
+# Changing current runlevel target:
+systemctl isolate name.target
+
+# Changing current runlevel target to multi-user (i.e., non-graphical):
+systemctl isolate multi-user.target
+
+
+
+ 
+openssl csr
 # new csr
 openssl req \
        -newkey rsa:2048 -nodes -keyout <fqdn>.key \
