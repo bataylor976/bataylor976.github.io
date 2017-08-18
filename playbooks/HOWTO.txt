@@ -1047,3 +1047,5 @@ chown -h apache:apache clamav-cvd
 # Create a symlink:
 ln -s /path/to/file /path/to/symlink
 
+# GNOME version
+gnome-session --version
