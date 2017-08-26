@@ -1,5 +1,8 @@
 How To:
 
+# Generate sha512 hash from command line:
+python -c 'import crypt,getpass; print crypt.crypt(getpass.getpass())'
+
 # systemd runlevel commands:
 # display default runlevel (or default target; for my purposes, the terms will
 # be interchangeable):
