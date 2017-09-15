@@ -75,6 +75,9 @@ ps aux | grep postgres
 # postgressql dump database cluster
 ./pg_dumpall --username=postgres --file=<output.filename>
 
+# postgresql find out size of postgres database:
+postgres=# SELECT pg_size_pretty( pg_database_size('dbname') );
+
 # safely change postgres user's password:
 su - postgres
 cd /path/to/PostgreSQL/bin/
