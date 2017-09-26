@@ -1,0 +1,122 @@
+#!/bin/bash
+
+export PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/root/bin:/opt/MegaRAID/storcli/
+vmname="$1"
+snapname="$vmname_down_$(date +%F_%H.%M.%S)"
+adminmail='name@somewhere.com'
+
+snapdown() {
+  # Create snapshot of VM in shutdown state--perhaps best state for snapshot.
+  virsh snapshot-create-as --domain "$vmname" --name "$snapname"
+  chksnap=$(echo $?)
+}
+
+getstat() {
+  # Get the state of the VM: running/shut off.
+  statget=$(virsh list --all | grep "$vmname")
+  stat=$(printf "%s\n" "${statget##* }")
+}
+
+checkdown() {
+  # Check if the VM is down.
+  local count=0
+  vmstate='up'
+  while (( "$count" < 40 )); do
+    getstat
+    if [[ "$stat" = 'off' ]]; then
+      vmstate='down'
+      break
+    elif [[ "$stat" = 'running' ]]; then
+      ((count++))
+      read -t 10
+      continue
+    fi
+  done
+}
+
+checkup() {
+  # Check if the VM is running.
+  local count=0
+  vmstate='down'
+  while (( "$count" < 40 )); do
+    getstat
+    if [[ "$stat" = 'running' ]]; then
+      vmstate='up'
+      break  
+    elif [[ "$stat" = 'off' ]]; then
+      ((count++))
+      read -t 10  
+      continue
+    fi
+  done
+}
+
+checksnap() {
+  # Verify successful snapshot.
+  local count=0
+  snap='bad'
+  while (( "$count" < 40 )); do
+    if [[ -e "/var/lib/libvirt/qemu/snapshot/$vmname/${snapname}.xml" ]] && [[ "$chksnap" -eq 0 ]]; then
+      snap='good'
+      break
+    else
+      ((count++))
+      read -t 10
+      continue
+    fi
+  done
+}
+
+shut() {
+  # Shuts down VM.
+  virsh shutdown "$vmname"
+  chkshut=$(echo $?)
+}
+
+start() {
+  # starts the VM.
+  virsh start "$vmname"
+  chkstart=$(echo $?)
+}
+
+notify() {
+  #Email notification
+  echo "$1" | mail -s "$2: $vmname" "$adminmail"
+}
+
+main() {
+  local count=0
+  while (( "$count" < 1 )); do
+    shut
+    checkdown
+    
+    if [[ "$vmstate" = 'down' ]]; then
+      snapdown
+    else
+      notify "$vmname has been trying to shutdown, but has been $vmstate for five minutes or longer. Please login and troubleshoot." "Snapshot errors"
+      break
+    fi
+    
+    checksnap
+
+    if [[ "$snap" = 'good' ]]; then
+      start
+    else
+      notify "Problems with snapshot for $vmname; login to esd-vm1 to troubleshoot" "Snapshot errors"
+      start
+      break
+    fi
+    
+    checkup
+    
+    if [[ "$vmstate" = 'up' ]]; then
+      notify "Snapshoting successfull for $vmname." "Snapshot success"
+    else
+      notify "$vmname has been trying to start, but has been $vmstate for five minutes or longer. Please login and troubleshoot." "Snapshot errors"
+      break
+    fi
+    ((count++))
+  done
+}
+
+main
