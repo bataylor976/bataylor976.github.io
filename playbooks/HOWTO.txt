@@ -187,6 +187,9 @@ mysql -u root -p newdatabase < /path/to/newdatabase.sql
 # List of mysql users:
 MariaDB [(none)]> select user,host from mysql.user;
 
+# List of mysql users + passwords:
+MariaDB [(none)]> select user,host,password from mysql.user;
+
 # show permissions for a single user:
 MariaDB [(none)]> show grants for 'username'@'%';
 
