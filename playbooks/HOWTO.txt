@@ -1,5 +1,9 @@
 How To:
 
+# Bash tip:
+# echo text into a root-owned file in a bash script:
+sudo sh -c 'echo "deb http://download.virtualbox.org/virtualbox/debian xenial contrib" >> /etc/apt/sources.list'
+
 #check_mk mysql plugin:
 cd /usr/share/check-mk-agent/plugins
 wget "$URL"  # from OMD WATO
