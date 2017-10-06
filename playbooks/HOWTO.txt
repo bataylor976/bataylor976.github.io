@@ -777,6 +777,10 @@ sudo iptables -L > iptables-l.txt-`date +%F`-`date +%T`
 
 iptables: 
 
+# insert iptables rule
+# requires iptables -L --line-numbers
+iptables -I INPUT 6 -p tcp -s 160.91.19.12/32 --dport 6556 -m conntrack --ctstate NEW,ESTABLISHED -j ACCEPT
+
 iptables-persistent:
 sudo apt-get install iptables-persistent
 
@@ -1021,7 +1025,7 @@ find ../ -name '*[Cc][Ll][Aa][Mm][Aa][Vv]*'  -print
 #awk: return row 2, 7th column 
 awk 'NR==2 {print $7}' free.txt
 
-# Single-user mode RHEL 7:
+# single-user mode RHEL 7:
 # Hit 'e' at grub menu.
 # Look for line that begins with 'linux16 vmlinuz.'
 # Go to end of that line, and type the following:
