@@ -1,5 +1,19 @@
 How To:
 
+#check_mk mysql plugin:
+cd /usr/share/check-mk-agent/plugins
+wget "$URL"  # from OMD WATO
+chmod 700 mk_mysql
+# Create /etc/check_mk/mysql.cfg:
+
+[client]
+user=<username>
+password=<password>
+
+# chmod 400 mysql.cfg
+
+# Configure the host in OMD/WATO.
+
 # Generate sha512 hash from command line:
 python -c 'import crypt,getpass; print crypt.crypt(getpass.getpass())'
 
@@ -1059,3 +1073,7 @@ ln -s /path/to/file /path/to/symlink
 
 # GNOME version
 gnome-session --version
+
+# Delete bash history item:
+history -d <offset #>
+history -w  # writes current history out to history file.
