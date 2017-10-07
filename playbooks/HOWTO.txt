@@ -372,6 +372,8 @@ firewall-cmd --get-services
 
 firewall-cmd --zone=home --list-all
 
+firewall-cmd --zone=public --add-port=5666/tcp --permanent
+
 # firewall-cmd rich rule example:
 firewall-cmd --zone=public --permanent --add-rich-rule='rule family="ipv4" source address="160.91.19.12" port port="5666" protocol="tcp" accept'
 
