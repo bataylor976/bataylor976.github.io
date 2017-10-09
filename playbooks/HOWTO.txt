@@ -1,5 +1,8 @@
 How To:
 
+# install packages in R from local repo:
+install.packages("<pkg-name", "repos="file:///</path/to/local/repo>")
+
 # python3 replacement fields:
 >>> for i in range(1, 12):
 ...     print("No. {0:2} squared is {1:4} and cubed is {2:4}".format(i, i**2, i ** 3))
