@@ -1,5 +1,12 @@
 How To:
 
+# install puppet module offline (i.e., without internet) 
+# assumes an officially released tarball.
+puppet module install </path/to/tarball> --ignore-dependencies
+
+# list puppet modules
+puppet module list
+
 # install packages in R from local repo:
 install.packages("<pkg-name", "repos="file:///</path/to/local/repo>")
 
