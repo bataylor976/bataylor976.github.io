@@ -51,6 +51,9 @@ password=<password>
 
 # chmod 400 mysql.cfg
 
+# permisions to give cmkuser:
+GRANT SELECT, SHOW DATABASES ON *.* TO 'username'@'servername';
+
 # Configure the host in OMD/WATO.
 
 # Generate sha512 hash from command line:
@@ -80,6 +83,8 @@ systemctl isolate name.target
 systemctl isolate multi-user.target
 
 
+# openssl showcert
+openssl s_client -showcerts -connect www.domain.com:443
 
  
 openssl csr
