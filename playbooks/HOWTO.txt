@@ -1121,6 +1121,14 @@ sudo cryptsetup luksDump /dev/sda5 | grep Slot
 # cryptsetup luksAddKey:
 sudo cryptsetup luksAddKey /dev/sda5
 
+# mount luks partition from command line:
+# open the partition and set up a mapping name:
+cryptsetup luksOpen /dev/sd??/ <mapping-name>
+# mount using the mapping name:
+mount /dev/mapper/<mapping-name> /path/to/mount/point
+
+
+
 # chown a symlink
 chown -h apache:apache clamav-cvd
 
