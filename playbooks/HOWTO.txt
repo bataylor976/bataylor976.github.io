@@ -1127,6 +1127,9 @@ cryptsetup luksOpen /dev/sd??/ <mapping-name>
 # mount using the mapping name:
 mount /dev/mapper/<mapping-name> /path/to/mount/point
 
+# Close luks
+cryptsetup luksClose <mapping-name>
+
 
 
 # chown a symlink
