@@ -1144,3 +1144,9 @@ gnome-session --version
 # Delete bash history item:
 history -d <offset #>
 history -w  # writes current history out to history file.
+
+# cat to EOF:
+cat > /path/to/file << "EOF"
+content
+content
+EOF
