@@ -697,7 +697,8 @@ mount -t cd9660 /dev/mdX /media
 [returns mdX -- x = int]
 Once umounted, you can destroy mdX
 
-
+# Generating a new ssh key:
+ssh-keygen -t rsa -b 4096
 
 # Transfer public key:
 
