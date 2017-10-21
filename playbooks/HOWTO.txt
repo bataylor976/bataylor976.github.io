@@ -700,6 +700,13 @@ Once umounted, you can destroy mdX
 # Generating a new ssh key:
 ssh-keygen -t rsa -b 4096
 
+# Adding ssh key to the ssh-agent:
+# Start the ssh-agent in the background.
+eval "$(ssh-agent -s)"
+
+# Add ssh private key to agent (and passphrase to keychain):
+ssh-add -K ~/.ssh/id_rsa
+
 # Transfer public key:
 
 ssh-copy-id <username>@<host>
