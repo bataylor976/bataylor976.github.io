@@ -7,6 +7,13 @@ puppet module install </path/to/tarball> --ignore-dependencies
 # list puppet modules
 puppet module list
 
+# puppet agent-- configure server 
+puppet config set server <server-fqdn>
+# puppet agent -- configure runlevel
+puppet config set runinterval 600
+# puppet agent -- run agent first time to connect to server
+puppet agent -t --server <server-fqdn>
+
 # install packages in R from local repo:
 install.packages("<pkg-name", "repos="file:///</path/to/local/repo>")
 
