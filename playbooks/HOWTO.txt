@@ -194,6 +194,13 @@ rsync -avP /path/to/dir/ <username>@system@ip_or_fqdn:/path/to/dir
 # Change log (maybe good to know?):
 nfs-utils-lib was rolled into nfs-utils as of RHEL 7.2, CentOS 7 now has made the upstream change as well. `
 
+# which nfs server version?
+# on server:
+rpcinfo -p localhost
+
+# nfs version on client
+nfsstat 
+
 # Change hostname:
 hostnamectl set-hostname "Your New Host Name Here" --pretty
 hostnamectl set-hostname Your-New-Host-Name-Here --static
