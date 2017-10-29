@@ -375,6 +375,11 @@ git stash clear
 # When no <stash> is given, applies the latest one. 
 git stash branch <branchname> [<stash>]
 
+# Change remote url:
+git remote set-url origin https://github.com/USERNAME/REPOSITORY.git
+#or:
+git remote set-url origin git@github.com:USERNAME/REPOSITORY.git
+
 # Remove a single stashed state from the stash list and apply it on top of the 
 # current working tree state, i.e., do the inverse operation of git stash save. # The working directory must match the index.
 git stash pop
