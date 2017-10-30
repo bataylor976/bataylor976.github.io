@@ -1183,3 +1183,6 @@ cat > /path/to/file << "EOF"
 content
 content
 EOF
+
+# OSX mac: mount device using ext4fuse
+ext4fuse /dev/disk2s1 </path/to/mountpoint>
