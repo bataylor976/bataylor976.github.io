@@ -1,5 +1,8 @@
 How To:
 
+# bash shell to running docker container:
+docker exec -i -t <CONTAINER> /bin/bash
+
 # install puppet module offline (i.e., without internet) 
 # assumes an officially released tarball.
 puppet module install </path/to/tarball> --ignore-dependencies
