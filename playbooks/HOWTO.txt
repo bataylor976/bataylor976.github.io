@@ -1186,3 +1186,6 @@ EOF
 
 # OSX mac: mount device using ext4fuse
 ext4fuse /dev/disk2s1 </path/to/mountpoint>
+
+# sshuttle
+sshuttle --dns -r id@fqdn 0/0
