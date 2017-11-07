@@ -3,6 +3,9 @@ How To:
 # bash shell to running docker container:
 docker exec -i -t <CONTAINER> /bin/bash
 
+# Remove dangling docker images:
+docker rmi $(docker images -f dangling=true -q)
+
 # install puppet module offline (i.e., without internet) 
 # assumes an officially released tarball.
 puppet module install </path/to/tarball> --ignore-dependencies
@@ -99,6 +102,10 @@ systemctl isolate name.target
 # Changing current runlevel target to multi-user (i.e., non-graphical):
 systemctl isolate multi-user.target
 
+# Generate self-signed cert:
+openssl req \
+       -newkey rsa:2048 -nodes -keyout domain.key \
+       -x509 -days 365 -out domain.crt
 
 # openssl showcert
 openssl s_client -showcerts -connect www.domain.com:443
