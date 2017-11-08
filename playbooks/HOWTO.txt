@@ -219,6 +219,29 @@ hostnamectl set-hostname Your-New-Host-Name-Here --transient
 # Check hostname status
 hostnamectl status
 
+# Create LVM
+# lvm pv:
+pvcreate /dev/<name>
+
+# lvm vgcreate
+vgcreate <vgname> /path/to/pv
+
+# lvm lvcreate
+lvcreate -l 100%VG -n <lvname> <vgname>
+
+# lvm extend
+
+#create new pv using fdisk (option t ; 8e to mark partition as lvm)
+vgextend <vgname> /path/to/newpv
+
+# if still mounted:
+lvextend -l 100%FREE /dev/mapper/vgname-lvname
+
+# or, if unmounted:
+lvextend -l 100%FREE /dev/vgname/lvname
+
+# or, may need to use free extents:
+lvextend -l +119295 /dev/vgname/lvname
 
 # Assign lvm label to parted partition:
 (parted) set <partition #> lvm on
