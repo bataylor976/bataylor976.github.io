@@ -243,6 +243,12 @@ lvextend -l 100%FREE /dev/vgname/lvname
 # or, may need to use free extents:
 lvextend -l +119295 /dev/vgname/lvname
 
+# Reduce lvm volume:
+umount -v /mnt/tecmint_reduce_test/
+e2fsck -ff /dev/vg_tecmint_extra/tecmint_reduce_test
+resize2fs /dev/vg_tecmint_extra/tecmint_reduce_test 10GB
+lvreduce -L -8G /dev/vg_tecmint_extra/tecmint_reduce_test
+
 # Assign lvm label to parted partition:
 (parted) set <partition #> lvm on
 
