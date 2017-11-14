@@ -478,6 +478,9 @@ success
 
 gitlab-rake gitlab:env:info
 
+# GitLab check ldap
+gitlab-rake gitlab:ldap:check
+
 # Resolve symlinks in batches (e.g., show me symlinks in /bin):
 
 find /bin/ -type l -printf '%p points to %l\n'
