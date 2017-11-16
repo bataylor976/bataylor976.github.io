@@ -1228,3 +1228,6 @@ ext4fuse /dev/disk2s1 </path/to/mountpoint>
 
 # sshuttle
 sshuttle --dns -r id@fqdn 0/0
+
+# For logoff user:
+pkill -KILL -u {username}
