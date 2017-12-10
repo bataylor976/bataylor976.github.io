@@ -803,8 +803,11 @@ grep -v
 # grep show line numbers
 grep -n
 
-# select all lines in file in vim:
+# vim: select all lines in file in vim
 ggVG
+
+# vim: select all lines in file and insert comment
+ctrl-v G I # esc esc
 
 # string substitute in vim:
 [replace all instances of foo with bar]
