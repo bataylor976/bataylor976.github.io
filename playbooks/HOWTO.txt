@@ -803,6 +803,9 @@ grep -v
 # grep show line numbers
 grep -n
 
+# vim: open file and go to particular word:
+vim +/<word> <filename>
+
 # vim: select all lines in file in vim
 ggVG
 
