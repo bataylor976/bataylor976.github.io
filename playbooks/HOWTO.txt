@@ -1242,3 +1242,6 @@ sshuttle --dns -r id@fqdn 0/0
 
 # For logoff user:
 pkill -KILL -u {username}
+
+# curl: get file size before downloading.
+curl -sI $url | grep Content-Length | cut -d ' ' -f 2
