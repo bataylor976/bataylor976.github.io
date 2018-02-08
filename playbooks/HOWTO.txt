@@ -1245,3 +1245,9 @@ pkill -KILL -u {username}
 
 # curl: get file size before downloading.
 curl -sI $url | grep Content-Length | cut -d ' ' -f 2
+
+# grep only matching numbers from file:
+grep -oh "[0-9]*" file.txt
+
+# loop through file w/ only numbers and add numbers
+sum=0; for i in $(<kb2.txt)); do ((sum += i)); done; printf "$sum\n"
