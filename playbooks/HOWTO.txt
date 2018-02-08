@@ -1251,3 +1251,6 @@ grep -oh "[0-9]*" file.txt
 
 # loop through file w/ only numbers and add numbers
 sum=0; for i in $(<kb2.txt)); do ((sum += i)); done; printf "$sum\n"
+
+# egrep for one or more digits . one or more digits:
+egrep -oh "[0-9]+.[0-9]+" file.txt
