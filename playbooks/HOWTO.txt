@@ -491,6 +491,9 @@ gitlab-rake gitlab:ldap:check
 
 find /bin/ -type l -printf '%p points to %l\n'
 
+# find files in subdirectory:
+find /path-to-dir -maxdepth 2 -type f -name "file" -exec <command> {} +
+
 
 # To return motherboard information:
 dmidecode | grep -A4 'Base Board'
