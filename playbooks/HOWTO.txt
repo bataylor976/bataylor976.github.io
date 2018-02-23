@@ -3,6 +3,9 @@ How To:
 # save a docker image to .tar file:
 docker save -o fedora-latest.tar fedora:latest
 
+# load docker tar to docker:
+docker load --input centos-lates.tar
+
 # bash shell to running docker container:
 docker exec -i -t <CONTAINER> /bin/bash
 
