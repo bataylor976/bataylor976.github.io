@@ -1272,3 +1272,9 @@ sum=0; for i in $(<kb2.txt)); do ((sum += i)); done; printf "$sum\n"
 
 # egrep for one or more digits . one or more digits:
 egrep -oh "[0-9]+.[0-9]+" file.txt
+
+# encrypt a file using openssl:
+openssl enc -aes-256-cbc -in ~/Desktop/Tecmint/tecmint.txt -out ~/Desktop/Tecmint/tecmint.dat
+
+# Decrypt a file using openssl:
+openssl enc -aes-256-cbc -d -in ~/Desktop/Tecmint/tecmint.dat > ~/Desktop/Tecmint/tecmint1.txt
