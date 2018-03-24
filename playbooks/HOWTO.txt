@@ -891,6 +891,11 @@ To comment out blocks in vim:
     5. insert the text you want, i.e. '% '
     6. press Esc.
 
+#To remove comments (or first character in multiple lines) in vim:
+  Select these N lines and press :, the command line will look like this
+  :'<,'>
+  complete the command as :'<,'>normal x and press Enter
+
 Copy the file "foobar.txt" from a remote host to the local host
 
     $ scp your_username@remotehost.edu:foobar.txt /some/local/directory
