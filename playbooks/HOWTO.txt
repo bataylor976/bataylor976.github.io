@@ -1283,3 +1283,6 @@ openssl enc -aes-256-cbc -in ~/Desktop/Tecmint/tecmint.txt -out ~/Desktop/Tecmin
 
 # Decrypt a file using openssl:
 openssl enc -aes-256-cbc -d -in ~/Desktop/Tecmint/tecmint.dat > ~/Desktop/Tecmint/tecmint1.txt
+
+# Block a package from updatding in Ubuntu:
+apt-mark hold <package-name>
