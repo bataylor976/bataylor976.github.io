@@ -1286,3 +1286,6 @@ openssl enc -aes-256-cbc -d -in ~/Desktop/Tecmint/tecmint.dat > ~/Desktop/Tecmin
 
 # Block a package from updatding in Ubuntu:
 apt-mark hold <package-name>
+
+# Ubuntu apt test install a package w/out actually installing:
+apt-get install --dry-run <package-name>
