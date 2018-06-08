@@ -1295,3 +1295,13 @@ apt-mark hold <package-name>
 
 # Ubuntu apt test install a package w/out actually installing:
 apt-get install --dry-run <package-name>
+
+# Manage Virtualbox from CLI:
+# revert to snapshot:
+vboxmanage snapshot <vm-name> restore <snapshot-name>
+
+# Start VM headless:
+vboxmanage startvm <vm-name> --type headless
+
+# Shutdown VM:
+vboxmanage controlvm <vm-name> poweroff
