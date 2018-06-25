@@ -1,5 +1,8 @@
 How To:
 
+# initialize docker swarm:
+docker swarm init
+
 # Copy file from docker container to host:
 docker cp <containerId>:/file/path/within/container /host/path/target
 
@@ -555,6 +558,9 @@ grep -Po '^sudo.+:\K.*$' /etc/group
 
 # Save strace execution to a file (e.g., 'ls' command):
 strace -o output.txt ls
+
+# strace to look only at opened files:
+strace -f -e open <name-of-process> 2>&1
 
 # Allow X11 port forwarding on Jaguar:
 #Appended to /etc/bash.bashrc file:
@@ -1305,3 +1311,18 @@ vboxmanage startvm <vm-name> --type headless
 
 # Shutdown VM:
 vboxmanage controlvm <vm-name> poweroff
+
+# Remove all subdirectories except selected ones:
+# the following recursively removes all but subdir1 and subdir2
+shopt -s extglob
+rm -rf !(subdir1|subdir2)
+
+# Toggle extglob:
+# turn it on:
+shopt -s extglob
+
+# test if it's on:
+shopt extglob
+
+# turn it off:
+shopt -u extglob
