@@ -1303,6 +1303,12 @@ apt-mark hold <package-name>
 apt-get install --dry-run <package-name>
 
 # Manage Virtualbox from CLI:
+# list snapshots
+vboxmanage snapshot <vm-name> list
+
+# take snapshot
+vboxmanage snapshot <vm-name> take <snapshot-name> --description <whatever-you-want> --live
+
 # revert to snapshot:
 vboxmanage snapshot <vm-name> restore <snapshot-name>
 
@@ -1326,3 +1332,21 @@ shopt extglob
 
 # turn it off:
 shopt -u extglob
+
+# scheduling one time commands with at utility:
+# at 9:00 AM
+at> sh backup.sh
+at> ^d
+job 3 at 2013-03-23 09:00
+
+or:
+echo "sh backup.sh" | at 9:00 AM
+
+# List the scheduled jobs using atq
+atq
+
+#Remove scheduled job using atrm
+atrm <job-id>
+
+# Check the content of scheduled job:
+at -c 5
