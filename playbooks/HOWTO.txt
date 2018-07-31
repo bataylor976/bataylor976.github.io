@@ -1350,3 +1350,6 @@ atrm <job-id>
 
 # Check the content of scheduled job:
 at -c 5
+
+# decrypt gpg file:
+gpg -c doc.gpg
