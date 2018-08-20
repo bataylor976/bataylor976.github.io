@@ -1388,3 +1388,7 @@ at -c 5
 
 # decrypt gpg file:
 gpg -c doc.gpg
+
+# port testings:
+curl -v telnet://target ip address:desired port number
+cat < /dev/tcp/target ip address/desired port number
