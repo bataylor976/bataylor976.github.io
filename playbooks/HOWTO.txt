@@ -1392,3 +1392,6 @@ gpg -c doc.gpg
 # port testings:
 curl -v telnet://target ip address:desired port number
 cat < /dev/tcp/target ip address/desired port number
+
+# Check if yum development tools installed:
+yum grouplist Dev* installed
