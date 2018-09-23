@@ -257,6 +257,9 @@ sudo freshclam -v
 # rsync, recursively, preserving permissions:
 rsync -avP /path/to/dir/ <username>@system@ip_or_fqdn:/path/to/dir
 
+# rsync, recursively, preserving permissions; delete in target what is no longer in source 
+rsync -avP source/ target --delete
+
 # Change log (maybe good to know?):
 nfs-utils-lib was rolled into nfs-utils as of RHEL 7.2, CentOS 7 now has made the upstream change as well. `
 
