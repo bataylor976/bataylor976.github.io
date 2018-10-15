@@ -1398,3 +1398,25 @@ cat < /dev/tcp/target ip address/desired port number
 
 # Check if yum development tools installed:
 yum grouplist Dev* installed
+
+# remove module from kernel:
+modprobe -r <module name>
+
+# How to stresss-test cpu:
+stress --cpu <#-cores> --timeout <secs>
+
+# nice usage (lower priority):
+nice -n <int> <command>
+
+# nice usage (increase priority):
+nice -n -<int> <command>
+
+# renice usage (increase priority):
+renice -n -<int> -p <pid>
+
+# renice usage (lower priority):
+renice -n <int> -p <pid>
+
+# renice usage (e.g., lower priority for user apache):
+renice -n 10 -u apache
+
