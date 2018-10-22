@@ -1420,3 +1420,5 @@ renice -n <int> -p <pid>
 # renice usage (e.g., lower priority for user apache):
 renice -n 10 -u apache
 
+# check date that system was created:
+rpm -q --last basesystem
