@@ -305,6 +305,10 @@ lvextend -l +119295 /dev/vgname/lvname
 # xfs extend xfs filesystem:
 xfs_growfs /mount/point -D size
 
+# if reducing root volume on live disk,
+# run this first to force volumes online:
+vgchange -a y
+
 # Reduce lvm volume:
 umount -v /mnt/tecmint_reduce_test/
 e2fsck -ff /dev/vg_tecmint_extra/tecmint_reduce_test
