@@ -553,6 +553,7 @@ find /bin/ -type l -printf '%p points to %l\n'
 
 # find files in subdirectory:
 find /path-to-dir -maxdepth 2 -type f -name "file" -exec <command> {} +
+find /path-to-dir -maxdepth 2 -type f -name -mtime +7 -exec <command> {} \;
 
 
 # To return motherboard information:
