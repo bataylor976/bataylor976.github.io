@@ -34,6 +34,19 @@ if x or y or z:
 
 if any((x, y, z)):
     print('passed')
+    
+    
+# Move /var/lib/docker to new partition
+systemctl stop docker
+
+ps aux | grep -i docker | grep -v grep  # Verify it's not running
+
+systemctl daemon-reload # If no output has been produced by the above command, reload systemd daemon
+
+mkdir /new/path/docker 
+rsync -aqxP /var/lib/docker/ /new/path/docker # Rsync data
+
+systemctl start docker 
 
 # initialize docker swarm:
 docker swarm init
