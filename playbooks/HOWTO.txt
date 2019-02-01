@@ -635,6 +635,8 @@ AllowTcpForwarding yes
 X11UseLocalHost yes
 AddressFamily inet
 
+# remove empty lines sed:
+sed -e /^$/d FILE
 
 # Remove all instances of a word in a file w/ sed.
 word='the'
