@@ -60,6 +60,9 @@ docker save -o fedora-latest.tar fedora:latest
 # load docker tar to docker:
 docker load --input centos-lates.tar
 
+# docker re-tag image
+docker tag server:latest myname/server:latest
+
 # bash shell to running docker container:
 docker exec -i -t <CONTAINER> /bin/bash
 
