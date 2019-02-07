@@ -1459,3 +1459,14 @@ IFS=',' declare -a LINE=( ${FILE[17]} )
 printf "%s" "${LINE[4]}"
 # bash alternative to sleep 5 seconds:
 read -t 5
+
+# disable selinux:
+setenforce 0
+
+# enable selinux
+setenforce 1
+
+# get current selinux status
+getenforce
+# Or:
+sestatus
