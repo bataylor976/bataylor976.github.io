@@ -1500,3 +1500,6 @@ semanage boolean -l | less
 
 # get individual module status:
 getsebool <module name>
+
+# turn module on (e.g):
+setsebool ftpd_anon_write on
