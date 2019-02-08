@@ -1503,3 +1503,6 @@ getsebool <module name>
 
 # turn module on (e.g):
 setsebool ftpd_anon_write on
+
+# make above persist reboot:
+setsebool -P ftpd_anon_write on
