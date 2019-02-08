@@ -1497,3 +1497,6 @@ semodule -l
 
 # selinuix modules: show the different switches to toggle, what they do, and their current statuses:
 semanage boolean -l | less
+
+# get individual module status:
+getsebool <module name>
