@@ -43,6 +43,12 @@ trim_string() {
     : "${_%"${_##*[![:space:]]}"}"
     printf '%s\n' "$_"
 }
+
+# Trim all white space from the string:
+trimitall() {
+  : "${1//[[:blank:]]/}"
+  printf '%s\n' "$_"
+}
 # bash
 # How to insert a default value for a variable while that variable is being called if no value already exists
 ${VAR=example}
