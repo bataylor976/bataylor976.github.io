@@ -36,6 +36,13 @@ if any((x, y, z)):
     print('passed')
 
 # PURE BASH:
+# Trim white space of string (leading and trailing):
+trim_string() {
+    # Usage: trim_string "   example   string    "
+    : "${1#"${1%%[![:space:]]*}"}"
+    : "${_%"${_##*[![:space:]]}"}"
+    printf '%s\n' "$_"
+}
 # bash
 # How to insert a default value for a variable while that variable is being called if no value already exists
 ${VAR=example}
