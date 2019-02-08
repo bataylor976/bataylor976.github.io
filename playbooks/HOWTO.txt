@@ -35,7 +35,7 @@ if x or y or z:
 if any((x, y, z)):
     print('passed')
 
-# PURE BASH:
+########## PURE BASH ##########
 # Trim white space of string (leading and trailing):
 trim_string() {
     # Usage: trim_string "   example   string    "
@@ -49,6 +49,14 @@ trimitall() {
   : "${1//[[:blank:]]/}"
   printf '%s\n' "$_"
 }
+
+# Block commenting:
+: <<"IGNORE"
+CODE 
+GOES
+HERE
+IGNORE
+
 # bash
 # How to insert a default value for a variable while that variable is being called if no value already exists
 ${VAR=example}
