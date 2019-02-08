@@ -1491,3 +1491,6 @@ setenforce 1
 getenforce
 # Or:
 sestatus
+
+# list loaded selinux modules
+semodule -l
