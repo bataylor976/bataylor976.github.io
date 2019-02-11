@@ -35,7 +35,7 @@ if x or y or z:
 if any((x, y, z)):
     print('passed')
 
-########## PURE BASH ##########
+########## PURE BASH: BEGIN ##########
 # Trim white space of string (leading and trailing):
 trim_string() {
     # Usage: trim_string "   example   string    "
@@ -67,6 +67,17 @@ IFS=',' declare -a LINE=( ${FILE[17]} )
 printf "%s" "${LINE[4]}"
 # bash alternative to sleep 5 seconds:
 read -t 5
+
+# return a substring using first matching
+# regex group
+func_regex() {
+  # Usage: regex 'string' 'regex'
+  [[ $1 =~ $2 ]] && printf '%s\n' "${BASH_REMATCH[1]}"
+}
+
+func_regex 'A5A1AD31A9C7735700B0714AA' '(A[0-9]?A)'
+
+########## PURE BASH: END ##########
     
 # Move /var/lib/docker to new partition
 systemctl stop docker
