@@ -36,6 +36,13 @@ if any((x, y, z)):
     print('passed')
 
 ########## PURE BASH: BEGIN ##########
+# simple find & replace:
+# ./replace dog cat FILE
+while IFS= read -r line; do
+  : "${line//$1/$2}"
+  printf '%s\n' "$_"
+done<"$3"
+
 # Trim white space of string (leading and trailing):
 trim_string() {
     # Usage: trim_string "   example   string    "
