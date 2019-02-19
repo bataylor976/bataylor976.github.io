@@ -1527,3 +1527,6 @@ setsebool -P ftpd_anon_write on
 
 # grep recursive exclude directory, file type:
 grep -ir --exclude-dir='.git'  --exclude='*.txt' PATTERN /dir/path
+
+# flush arp cache:
+ip -s -s neigh flush all
