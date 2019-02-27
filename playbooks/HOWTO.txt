@@ -1038,11 +1038,14 @@ Thank you for installing Anaconda2!
 how to ssh into virtualbox guest:
 ssh -p 22 taylor@127.0.0.1
 
-open ssh port on virtualbox guest:
+#open ssh port on virtualbox guest:
 VBoxManage modifyvm "PyNetPro" --natpf1 "guestssh,tcp,,22,,22"
 
-change virtualbox nat range:
+#change virtualbox nat range:
 VBoxManage modifyvm "VM name" --natnet1 192.168.1/24
+
+# Virtualbox change vm RAM / CPU cli:
+vboxmanage modifyvm kdiscan-centos --memory 4096 --cpus 2
 
 generate rsa keys on a cisco IOS router:
 Router(config)# crypto key generate rsa
