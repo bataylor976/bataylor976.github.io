@@ -484,6 +484,9 @@ source pgvenv/bin/activate
 # when finished, type:
 deactivate
 
+# grep count matches:
+grep -c 'string' file
+
 # Check postfix mail queue count:
 mailq | grep -c "^[A-F0-9]"
 
