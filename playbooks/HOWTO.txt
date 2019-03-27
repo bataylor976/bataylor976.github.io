@@ -730,7 +730,8 @@ $ sed 's/^.//' file
 
 $ sed 's/.$//' file
 
-
+# grep ignore multiple strings:
+grep -Ev 'string1|string2|string3' file
 
 # print disk usage by % but filter out irrelevant information
 df -H | grep -vE '^Filesystem|tmpfs|cdrom' | awk '{ print $5 " " $1 }'
