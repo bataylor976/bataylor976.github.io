@@ -1540,3 +1540,7 @@ ip -s -s neigh flush all
 
 # reboot history:
 last reboot
+
+# awk file separator:
+echo "1:2:3:4" | awk 'BEGIN { FS=":" } { print $3 }'
+3
