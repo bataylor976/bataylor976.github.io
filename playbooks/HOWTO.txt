@@ -36,6 +36,9 @@ if any((x, y, z)):
     print('passed')
 
 ########## PURE BASH: BEGIN ##########
+# read: alternative to sleep utility
+# sleep five secs
+read -t 5
 # simple find & replace:
 # ./replace dog cat FILE
 while IFS= read -r line; do
