@@ -36,6 +36,16 @@ if any((x, y, z)):
     print('passed')
 
 ########## PURE BASH: BEGIN ##########
+# print total memory of a process
+#!/bin/bash
+
+total=0
+while IFS= read -r line; do
+  total=$(( $total + $line ))
+done< <(cat /proc/<pid>/smaps | grep Size | grep -Ev 'Kernel|MMUPage' | awk {'print $2'})
+printf '%s\n' "$total"
+####################
+
 # read: alternative to sleep utility
 # sleep five secs
 read -t 5
