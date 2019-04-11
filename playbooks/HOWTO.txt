@@ -36,15 +36,6 @@ if any((x, y, z)):
     print('passed')
 
 ########## PURE BASH: BEGIN ##########
-# print total memory of a process
-#!/bin/bash
-
-total=0
-while IFS= read -r line; do
-  total=$(( $total + $line ))
-done< <(cat /proc/<pid>/smaps | grep Size | grep -Ev 'Kernel|MMUPage' | awk {'print $2'})
-printf '%s\n' "$total"
-####################
 
 # read: alternative to sleep utility
 # sleep five secs
@@ -98,6 +89,15 @@ func_regex() {
 func_regex 'A5A1AD31A9C7735700B0714AA' '(A[0-9]?A)'
 
 ########## PURE BASH: END ##########
+
+# print total memory of a process
+#!/bin/bash
+
+total=0
+while IFS= read -r line; do
+  total=$(( $total + $line ))
+done< <(cat /proc/<pid>/smaps | grep Size | grep -Ev 'Kernel|MMUPage' | awk {'print $2'})
+printf '%s\n' "$total"
     
 # Move /var/lib/docker to new partition
 systemctl stop docker
