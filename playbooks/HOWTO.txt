@@ -155,6 +155,12 @@ puppet config set runinterval 600
 # puppet agent -- run agent first time to connect to server
 puppet agent -t --server <server-fqdn>
 
+# list certs on puppet master:
+puppet cert list --all
+
+# remove an agent's cert:
+puppet cert clean <fqdn>
+
 # install packages in R from local repo:
 install.packages("<pkg-name", "repos="file:///</path/to/local/repo>")
 
