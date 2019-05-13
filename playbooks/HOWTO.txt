@@ -485,6 +485,25 @@ CREATE TABLE Persons (
 # mysql Privilege granting example:
 GRANT ALL PRIVILEGES ON `<database name>`.* TO '<mysql username>'@'%' IDENTIFIED BY '<password>';
 
+# Changing mysql root user password:
+Step # 1: Stop the MySQL service:
+
+service mysql stop
+
+Stopping MySQL database server: mysqld.
+Step # 2: Start the MySQL server w/o password:
+
+mysqld_safe --skip-grant-tables &
+
+Step # 3: Connect to the MySQL server using the MySQL client:
+
+mysql -u root
+
+mysql> use mysql;
+mysql> update user set password=PASSWORD("NEW-ROOT-PASSWORD") where User='root';
+mysql> flush privileges;
+mysql> quit
+
 # Python virtual environments:
 pip install virtualenv
 virtualenv --version #just to verify installed.
