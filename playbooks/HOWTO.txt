@@ -373,6 +373,9 @@ vgcreate <vgname> /path/to/pv
 # lvm lvcreate
 lvcreate -l 100%VG -n <lvname> <vgname>
 
+# lvm lvcreate striped
+lvcreate --name <lvname> --size <size, e.g. 1T> -i<disk#> <vgname>
+
 # lvm extend
 
 #create new pv using fdisk (option t ; 8e to mark partition as lvm)
