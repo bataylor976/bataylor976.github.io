@@ -400,6 +400,9 @@ e2fsck -ff /dev/vg_tecmint_extra/tecmint_reduce_test
 resize2fs /dev/vg_tecmint_extra/tecmint_reduce_test 10GB
 lvreduce -L -8G /dev/vg_tecmint_extra/tecmint_reduce_test
 
+# parted one-liner (for >2TB):
+parted -s -a optimal /dev/sdb mklabel gpt mkpart primary 1 100% set 1 lvm on
+
 # Assign lvm label to parted partition:
 (parted) set <partition #> lvm on
 
