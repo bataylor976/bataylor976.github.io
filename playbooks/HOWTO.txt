@@ -1596,3 +1596,9 @@ curl -v telnet://<ip-address>:port
 
 # pstree
 pstree -AhpGn
+
+# Unblocking fail2ban:
+# Get the name of the fail2ban jail:
+root@ansible:~# fail2ban-client status 
+# Unblock based on ip address:
+root@ansible:~# fail2ban-client set <jail-name> unbanip <ip-address>
