@@ -1602,3 +1602,7 @@ pstree -AhpGn
 root@ansible:~# fail2ban-client status 
 # Unblock based on ip address:
 root@ansible:~# fail2ban-client set <jail-name> unbanip <ip-address>
+
+# How to remove duplicate packages from a failed yum transaction
+https://access.redhat.com/solutions/3924551
+yum-complete-transaction
