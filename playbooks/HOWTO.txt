@@ -1606,3 +1606,10 @@ root@ansible:~# fail2ban-client set <jail-name> unbanip <ip-address>
 # How to remove duplicate packages from a failed yum transaction
 https://access.redhat.com/solutions/3924551
 yum-complete-transaction
+# Afterwards, you may have to manually remove:
+# tar cjf /tmp/rpm_db.tar.bz2 /var/lib/{rpm,yum}
+# yum check &> /tmp/yumcheck
+# grep "duplicate" /tmp/yumcheck | awk '{ print $NF }' | egrep -v "\:" > /tmp/duplicaterpms
+# grep "duplicate" /tmp/yumcheck | awk '{ print $NF }' | egrep ":" | awk -F':' '{ print $NF }' >> /tmp/duplicaterpms
+# for i in $(cat /tmp/duplicaterpms); do rpm -e --justdb --nodeps $i; done
+# yum update
