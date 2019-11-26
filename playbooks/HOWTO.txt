@@ -1613,3 +1613,6 @@ yum-complete-transaction
 # grep "duplicate" /tmp/yumcheck | awk '{ print $NF }' | egrep ":" | awk -F':' '{ print $NF }' >> /tmp/duplicaterpms
 # for i in $(cat /tmp/duplicaterpms); do rpm -e --justdb --nodeps $i; done
 # yum update
+
+# use awk to remove first column of a file, and print remaining contents:
+awk '{$1=""}1' input.txt
