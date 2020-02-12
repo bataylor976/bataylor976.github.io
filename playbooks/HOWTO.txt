@@ -1616,3 +1616,8 @@ yum-complete-transaction
 
 # use awk to remove first column of a file, and print remaining contents:
 awk '{$1=""}1' input.txt
+
+# Convert x509 string to headers and \n format:
+base64 -d | openssl x509 -inform DER  # hit enter
+# Copy-n-paste the x509 string
+# ctrl-d
