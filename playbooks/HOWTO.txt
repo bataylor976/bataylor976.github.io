@@ -1621,3 +1621,6 @@ awk '{$1=""}1' input.txt
 base64 -d | openssl x509 -inform DER  # hit enter
 # Copy-n-paste the x509 string
 # ctrl-d
+
+# Convert text file to csv (assuming white-spaced delimted):
+cat ifile.txt | tr -s '[:blank:]' ',' > ofile.txt
