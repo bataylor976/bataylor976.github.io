@@ -1624,3 +1624,6 @@ base64 -d | openssl x509 -inform DER  # hit enter
 
 # Convert text file to csv (assuming white-spaced delimted):
 cat ifile.txt | tr -s '[:blank:]' ',' > ofile.txt
+
+# Convert json file to csv:
+cat infile.json | jq -r '.[] | [.field1, .field2, .field3, .field4, .field5, .field6, .field6] | @csv' >> outfile.csv
