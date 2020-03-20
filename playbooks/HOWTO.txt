@@ -158,8 +158,13 @@ puppet agent -t --server <server-fqdn>
 # list certs on puppet master:
 puppet cert list --all
 
-# remove an agent's cert:
+# remove an agent's cert (on puppetmaster):
 puppet cert clean <fqdn>
+
+# on agent:
+rm -rf /etc/puppetlabs/puppet/ssl
+# possibly (remove the agent's cached catalogs):
+rm -f /opt/puppetlabs/puppet/cache/client_data/catalog/<CERTNAME>.json
 
 # install packages in R from local repo:
 install.packages("<pkg-name", "repos="file:///</path/to/local/repo>")
