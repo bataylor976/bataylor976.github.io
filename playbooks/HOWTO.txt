@@ -1632,3 +1632,6 @@ cat ifile.txt | tr -s '[:blank:]' ',' > ofile.txt
 
 # Convert json file to csv:
 cat infile.json | jq -r '.[] | [.field1, .field2, .field3, .field4, .field5, .field6, .field6] | @csv' >> outfile.csv
+
+# users logged into ShareLaTeX:
+docker exec -i mongo mongo --quiet sharelatex --eval "db.users.count({\"lastLoggedIn\" : { \$gte : new ISODate(\"$(date +%F -d 'last month')T00:00:00Z\")} })"
