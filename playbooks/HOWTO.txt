@@ -1635,3 +1635,6 @@ cat infile.json | jq -r '.[] | [.field1, .field2, .field3, .field4, .field5, .fi
 
 # users logged into ShareLaTeX:
 docker exec -i mongo mongo --quiet sharelatex --eval "db.users.count({\"lastLoggedIn\" : { \$gte : new ISODate(\"$(date +%F -d 'last month')T00:00:00Z\")} })"
+
+#rsync through a port forward
+rsync -avP --inplace -e 'ssh -p 2211' user@ip-address:/path/to/file/
