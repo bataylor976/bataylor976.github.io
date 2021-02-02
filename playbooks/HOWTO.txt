@@ -1638,3 +1638,6 @@ docker exec -i mongo mongo --quiet sharelatex --eval "db.users.count({\"lastLogg
 
 #rsync through a port forward
 rsync -avP --inplace -e 'ssh -p 2211' user@ip-address:/path/to/file/
+
+# Use rpm to find which rpm package a file came from:
+rpm -qf /path/to/file
