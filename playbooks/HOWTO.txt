@@ -1641,3 +1641,6 @@ rsync -avP --inplace -e 'ssh -p 2211' user@ip-address:/path/to/file/
 
 # Use rpm to find which rpm package a file came from:
 rpm -qf /path/to/file
+
+# configure git credential cache (expires after 10 minutes):
+git config credential.helper 'cache --timeout=600'
