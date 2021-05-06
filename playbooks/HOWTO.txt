@@ -1,5 +1,14 @@
 How To:
 
+# Git Rebase from master and Squash
+git checkout master
+git pull origin master
+git checkout <branch>
+git rebase -i master 
+# in the interactive editor, replace 'pick' with 'squash' for each commit line -- except for the top (i.e., the oldest commit); leave that as 'pick'
+#:wq
+# If it cleanly rebases and squashes, a new interactive editor will open to enter a final commit message -- add/subtract as you wish.
+git push origin <branch> --force
 python tips:
 # How to merge two dictionaries
 # in Python 3.5+
