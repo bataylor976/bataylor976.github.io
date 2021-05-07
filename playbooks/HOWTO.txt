@@ -1653,3 +1653,6 @@ rpm -qf /path/to/file
 
 # configure git credential cache (expires after 10 minutes):
 git config credential.helper 'cache --timeout=600'
+
+# use grubby to update the default index for kernel selection at boot:
+grubby --set-default-index=<0,1,2,etc>
