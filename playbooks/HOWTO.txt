@@ -1,5 +1,9 @@
 How To:
 
+# Git rebase wholesale resolve merge conflicts by chosing your own working branch over against the target branch:
+git rebase -iXtheirs origin/master
+# insert the line above where git rebase -i master below.
+
 # Git Rebase from master and Squash
 git checkout master
 git pull origin master
