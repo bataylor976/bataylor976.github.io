@@ -1,5 +1,17 @@
 How To:
 
+Call a kickstart script on a usb using Grub:
+https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/9/html-single/performing_an_advanced_rhel_9_installation/index
+1. List volume information and note the UUID of the volume to which you want to copy the Kickstart file.
+# lsblk -l -p -o name,rm,ro,hotplug,size,type,mountpoint,uuid
+2. Navigate to the file system on the volume.
+3. Copy the Kickstart file to this file system.
+4. Make a note of the string to use later with the inst.ks= option. This string is in the form:
+	hd:UUID=volume-UUID:path/to/kickstart-file.cfg. #Note that the path is relative to the file system root, not to the / root of file system hierarchy. Replace volume-UUID with the UUID you noted earlier.
+5. Unmount all drive volumes:
+# umount /dev/xyz ...
+6. Add all the volumes to the command, separated by spaces.
+
 # Git rebase wholesale resolve merge conflicts by chosing your own working branch over against the target branch:
 git rebase -iXtheirs origin/master
 # insert the line above where git rebase -i master below.
