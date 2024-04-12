@@ -1,5 +1,8 @@
 How To:
 
+awk: Remove white space and blank line:
+awk 'NF > 0' filename
+
 Call a kickstart script on a usb using Grub:
 https://access.redhat.com/documentation/en-us/red_hat_enterprise_linux/9/html-single/performing_an_advanced_rhel_9_installation/index
 1. List volume information and note the UUID of the volume to which you want to copy the Kickstart file.
