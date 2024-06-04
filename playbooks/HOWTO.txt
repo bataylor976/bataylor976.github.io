@@ -1,4 +1,9 @@
 How To:
+# Find and move files between two date ranges:
+find . -type f -newermt '02 Jun 2024 00:00:00' -not -newermt '03 June 2024 00:00:00' -exec mv {} /path/to/dir/ \;
+
+# Find and list files between two date ranges:
+find . -type f -newermt '01 jan 2009 00:00:00' -not -newermt '01 jan 2012 00:00:00' -ls
 
 awk: Remove white space and blank line:
 awk 'NF > 0' filename
