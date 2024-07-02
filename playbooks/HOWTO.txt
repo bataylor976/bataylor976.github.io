@@ -1,4 +1,7 @@
 How To:
+# Artifically drive up memory usage:
+cat /dev/zero | head -c 100G | tail
+
 # Find and move files between two date ranges:
 find . -type f -newermt '02 Jun 2024 00:00:00' -not -newermt '03 June 2024 00:00:00' -exec mv {} /path/to/dir/ \;
 
