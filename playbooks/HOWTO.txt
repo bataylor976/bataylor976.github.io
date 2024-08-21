@@ -1,4 +1,13 @@
 How To:
+
+# Ping with Tiimestamps (redirect to both stdout and file):
+ping <ip or hostname> | while read result; do echo "[$(date)] $result"; done 2>&1 | tee ~/outfile.txt
+
+# MySQL Dump:
+mysqldump -u root -p --no-tablespaces --single-transaction <db-name> > dumpfile.sql
+# MySQL restore from Dump File:
+mysql --verbose -u root -p <db-name> < dumpfile.sql
+
 # Artifically drive up memory usage:
 cat /dev/zero | head -c 100G | tail
 
