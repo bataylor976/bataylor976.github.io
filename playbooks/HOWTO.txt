@@ -1,4 +1,6 @@
 How To:
+#grep -- ignore commented and empty lines:
+grep -vE '^(#|$)' /path/to/file
 
 # Ping with Tiimestamps (redirect to both stdout and file):
 ping <ip or hostname> | while read result; do echo "[$(date)] $result"; done 2>&1 | tee ~/outfile.txt
